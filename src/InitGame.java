@@ -3,6 +3,6 @@ import acm.program.*;
 public class InitGame extends GraphicsProgram{
 
     public void init() {
-        this.setSize(400,500);
+        this.setSize(600,500);
     }
 }
