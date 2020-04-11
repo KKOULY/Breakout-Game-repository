@@ -85,7 +85,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void startGame() {
-		while (true) {
+		while (!isFinishGame) {
 			ball.move(vx, vy);
 			checkCollision();
 			pause(10);
@@ -94,7 +94,21 @@ public class Breakout extends GraphicsProgram {
 
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) vx *= -1;
+		else if(ball.getY() < 0) vy *= -1;
 		else if(findObjectForward()) vy *= -1;
+		else if(ball.getY()>HEIGHT){
+			lives--;
+			if(lives <= 0) {
+				isFinishGame = true;
+			} else {
+				remove(ball);
+				initBall();
+			}
+		}
+
+		if(brickCount <= 0) {
+			isFinishGame = true;
+		}
 	}
 
 	private boolean findObjectForward() {
@@ -114,7 +128,7 @@ public class Breakout extends GraphicsProgram {
 	private boolean isBrickOrPaddle(GObject obj) {
 		if(obj != null){
 			if(obj == paddle) {
-				if(ball.getY()+ball.getHeight() < paddle.getY()){
+				if(ball.getY()+ball.getHeight() > paddle.getY()){
 					double dif = (ball.getY()+ball.getHeight())-paddle.getY();
 					ball.move(0,-dif);
 				}
