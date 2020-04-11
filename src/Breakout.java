@@ -123,16 +123,15 @@ public class Breakout extends GraphicsProgram {
 
 	private boolean findObjectForward() {
 		GObject obj;
-		boolean flag = false;
 		obj = getElementAt(ball.getX(),ball.getY());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX(),ball.getY()+ball.getHeight());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY());
-		if(isBrickOrPaddle(obj)) flag = true;
-		return flag;
+		if(isBrickOrPaddle(obj)) return true;
+		return false;
 	}
 
 	private boolean isBrickOrPaddle(GObject obj) {
