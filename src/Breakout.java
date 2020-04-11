@@ -71,6 +71,8 @@ public class Breakout extends GraphicsProgram {
 	private int score=0;
 	private GLabel scoreLabel;
 	private GRect paddle;
+	private boolean lose = false;
+	private boolean win = false;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -85,6 +87,7 @@ public class Breakout extends GraphicsProgram {
         timer();
 		initBall();
         startGame();
+        finishGame();
 	}
 
 	private void startGame() {
@@ -93,6 +96,29 @@ public class Breakout extends GraphicsProgram {
 			checkCollision();
 			pause(10);
 		}
+	}
+
+	private void finishGame(){
+		GRect finishRect = new GRect(0,0,this.getWidth(),this.getHeight());
+		finishRect.setFilled(true);
+		add(finishRect);
+		if (win == true){
+			GLabel winLabel = new GLabel("You win!");
+			winLabel.setFont("Bahnschrift-60");
+			winLabel.setColor(Color.white);
+			add(winLabel,this.getWidth()/2-winLabel.getWidth()/2,this.getHeight()/2.0+winLabel.getHeight()/2);
+		}
+		if (lose == true){
+			GLabel loseLabel = new GLabel("You lose.");
+			GLabel loseLabel2 = new GLabel("Your score: "+score);
+			loseLabel.setFont("Bahnschrift-50");
+			loseLabel2.setFont("Bahnschrift-50");
+			loseLabel.setColor(Color.white);
+			loseLabel2.setColor(Color.white);
+			add(loseLabel,this.getWidth()/2-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
+			add(loseLabel2,this.getWidth()/2-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
+		}
+
 	}
 
 	private void checkCollision() {
@@ -109,6 +135,7 @@ public class Breakout extends GraphicsProgram {
 				remove(heart1);
 			if(lives <= 0) {
 				isFinishGame = true;
+				lose = true;
 			} else {
 				remove(ball);
 				timer();
@@ -118,6 +145,7 @@ public class Breakout extends GraphicsProgram {
 
 		if(brickCount <= 0) {
 			isFinishGame = true;
+			win=true;
 		}
 	}
 
