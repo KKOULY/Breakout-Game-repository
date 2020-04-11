@@ -63,6 +63,7 @@ public class Breakout extends GraphicsProgram {
 
 	private GOval ball;
 	private double vx,vy;
+	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
 
 	
 	private GRect paddle;
@@ -76,7 +77,54 @@ public class Breakout extends GraphicsProgram {
 		drawBricks();
         initBall();
         initPaddle();
+        startGame();
 
+	}
+
+	private void startGame() {
+		while (true) {
+			ball.move(vx, vy);
+			checkCollision();
+			pause(10);
+		}
+	}
+
+	private void checkCollision() {
+		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) vx *= -1;
+		else if(findObjectForward()) vy *= -1;
+	}
+
+	private boolean findObjectForward() {
+		GObject obj;
+		boolean flag = false;
+		obj = getElementAt(ball.getX(),ball.getY());
+		if(isBrickOrPaddle(obj)) flag = true;
+		obj = getElementAt(ball.getX(),ball.getY()+ball.getHeight());
+		if(isBrickOrPaddle(obj)) flag = true;
+		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
+		if(isBrickOrPaddle(obj)) flag = true;
+		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY());
+		if(isBrickOrPaddle(obj)) flag = true;
+		return flag;
+	}
+
+	private boolean isBrickOrPaddle(GObject obj) {
+		if(obj != null){
+			if(obj == paddle) {
+				if(ball.getY()+ball.getHeight() < paddle.getY()){
+					double dif = (ball.getY()+ball.getHeight())-paddle.getY();
+					ball.move(0,-dif);
+				}
+				return true;
+			}
+			else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH){
+				remove(obj);
+				brickCount--;
+				return true;
+				// updateScore();
+			} else return false;
+		}
+		return false;
 	}
 
 	private void initPaddle() {
@@ -87,6 +135,7 @@ public class Breakout extends GraphicsProgram {
 	private void initBall() {
         vx = rgen.nextDouble(1.0, 3.0);
         if (rgen.nextBoolean(0.5)) vx = -vx;
+        vy = 3.0;
         ball = new GOval(BALL_RADIUS*2,BALL_RADIUS*2);
         double startX = WIDTH/2.0-ball.getWidth()/2.0;
         double startY = HEIGHT/2.0-ball.getHeight()/2.0;
