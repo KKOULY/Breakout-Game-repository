@@ -199,8 +199,8 @@ public class Breakout extends GraphicsProgram {
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 10, 10);
 		add(scoreImage);
-		scoreLabel = new GLabel(""+score,120,25);
-		scoreLabel.setFont("Bahnschrift-30");
+		scoreLabel = new GLabel(""+score,105,25);
+		scoreLabel.setFont("Bahnschrift-23");
 		scoreLabel.setColor(Color.white);
 		add(scoreLabel);
 	}
