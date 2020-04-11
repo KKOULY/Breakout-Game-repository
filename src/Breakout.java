@@ -10,7 +10,7 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
-import java.applet.*;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -53,8 +53,6 @@ public class Breakout extends GraphicsProgram {
 /** Offset of the top brick row from the top */
 	private static final int BRICK_Y_OFFSET = 70;
 
-/** Number of turns */
-	private static final int NTURNS = 3;
 	
 	/** Number of lives */
 
@@ -72,7 +70,6 @@ public class Breakout extends GraphicsProgram {
 	private int score=0;
 	private GLabel scoreLabel;
 	private GRect paddle;
-	private boolean lose = false;
 	private boolean win = false;
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -100,24 +97,32 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void finishGame(){
-		GRect finishRect = new GRect(0,0,this.getWidth(),this.getHeight());
+		GRect finishRect = new GRect(0,BRICK_Y_OFFSET,this.getWidth(),this.getHeight());
 		finishRect.setFilled(true);
+		Color back = new Color(48,48,48);
+		finishRect.setColor(back);
 		add(finishRect);
-		if (win == true){
-			GLabel winLabel = new GLabel("YOU WIN!");
-			winLabel.setFont("Bahnschrift-60");
-			winLabel.setColor(Color.white);
-			add(winLabel,this.getWidth()/2-winLabel.getWidth()/2,this.getHeight()/2.0+winLabel.getHeight()/2);
+		if (win){
+			GImage youWin = new GImage("youWin.png");
+			youWin.scale(0.3);
+			add(youWin,WIDTH/2.0-youWin.getWidth()/2.0,HEIGHT/2.0-youWin.getHeight()/2.0);
+//			GLabel winLabel = new GLabel("YOU WIN!");
+//			winLabel.setFont("Bahnschrift-60");
+//			winLabel.setColor(Color.white);
+//			add(winLabel,this.getWidth()/2.0-winLabel.getWidth()/2,this.getHeight()/2.0+winLabel.getHeight()/2);
 		}
-		if (lose == true){
-			GLabel loseLabel = new GLabel("YOU LOSE");
-			GLabel loseLabel2 = new GLabel("YOUR SCORE: "+score);
-			loseLabel.setFont("Bahnschrift-50");
-			loseLabel2.setFont("Bahnschrift-50");
-			loseLabel.setColor(Color.white);
-			loseLabel2.setColor(Color.white);
-			add(loseLabel,this.getWidth()/2-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
-			add(loseLabel2,this.getWidth()/2-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
+		else{
+			GImage gameOver = new GImage("gameOver.png");
+			gameOver.scale(0.25);
+			add(gameOver,WIDTH/2.0-gameOver.getWidth()/2.0,HEIGHT/2.0-gameOver.getHeight()/2.0);
+//			GLabel loseLabel = new GLabel("YOU LOSE");
+//			GLabel loseLabel2 = new GLabel("YOUR SCORE: "+score);
+//			loseLabel.setFont("Bahnschrift-50");
+//			loseLabel2.setFont("Bahnschrift-50");
+//			loseLabel.setColor(Color.white);
+//			loseLabel2.setColor(Color.white);
+//			add(loseLabel,this.getWidth()/2.0-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
+//			add(loseLabel2,this.getWidth()/2.0-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
 		}
 	}
 
@@ -135,7 +140,6 @@ public class Breakout extends GraphicsProgram {
 				remove(heart1);
 			if(lives <= 0) {
 				isFinishGame = true;
-				lose = true;
 			} else {
 				remove(ball);
 				timer();
@@ -208,14 +212,11 @@ public class Breakout extends GraphicsProgram {
 				vy*=k;
 				vx*=k;
 			}
-		} else if(brickColor == Color.cyan){
-			vy = vy;
-			vx = vx;
 		}
 	}
 
 	private void initPaddle() {
-		paddle = CreatePaddle(PADDLE_WIDTH,PADDLE_HEIGHT,PADDLE_Y_OFFSET);
+		paddle = CreatePaddle();
 		add(paddle);
 	}
 
@@ -266,9 +267,10 @@ public class Breakout extends GraphicsProgram {
 		return returnCol(ColorsNum);
 	}
 
-	private GRect CreatePaddle(int paddleWidth,int paddleHeight, int yOffset){
+	private GRect CreatePaddle(){
 		Color paddleColor = new Color(223,245,119);
-		GRect paddle = new GRect(0,getHeight()-yOffset-paddleHeight,paddleWidth,paddleHeight);
+		GRect paddle = new GRect(0,getHeight()- Breakout.PADDLE_Y_OFFSET - Breakout.PADDLE_HEIGHT,
+				Breakout.PADDLE_WIDTH, Breakout.PADDLE_HEIGHT);
 		paddle.setFilled(true);
 		paddle.setColor(paddleColor);
 		return paddle;
@@ -286,22 +288,29 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void initHearts(){
-		heart1 = new GImage("Heart.png");
-		heart1.scale(0.08);
-		add(heart1, this.getWidth()-heart1.getWidth(),0);
-		heart2 = new GImage("Heart.png");
-		heart2.scale(0.08);
-		add(heart2, this.getWidth()-heart2.getWidth()*2,0);
-		heart3 = new GImage("Heart.png");
-		heart3.scale(0.08);
-		add(heart3, this.getWidth()-heart3.getWidth()*3,0);
+		if(lives > 0) {
+			heart1 = new GImage("Heart.png");
+			heart1.scale(0.08);
+			add(heart1, this.getWidth() - heart1.getWidth(), 0);
+		}
+		if(lives > 1) {
+			heart2 = new GImage("Heart.png");
+			heart2.scale(0.08);
+			add(heart2, this.getWidth() - heart2.getWidth() * 2, 0);
+		}
+		if(lives > 2) {
+			heart3 = new GImage("Heart.png");
+			heart3.scale(0.08);
+			add(heart3, this.getWidth() - heart3.getWidth() * 3, 0);
+		}
 	}
 
 	private void  initScore(){
-		GImage scoreImage = new GImage("ScorePNG.png", 10, 10);
+		GImage scoreImage = new GImage("ScorePNG.png", 5, 10);
+		scoreImage.scale(1.1);
 		add(scoreImage);
-		scoreLabel = new GLabel(""+score,105,25);
-		scoreLabel.setFont("Bahnschrift-23");
+		scoreLabel = new GLabel(""+score,110,25);
+		scoreLabel.setFont("Bahnschrift-bold-23");
 		scoreLabel.setColor(Color.white);
 		add(scoreLabel);
 	}
@@ -323,14 +332,13 @@ public class Breakout extends GraphicsProgram {
 	private void timer(){
 		int time = 3;
 		GLabel timerLabel = new GLabel(""+time);
-		timerLabel.setFont("Bahnschrift-40");
 		timerLabel.setColor(Color.white);
 		while (time!=0){
 			for (int i = 0; i<100;i++){
 				pause(10);
 				remove(timerLabel);
 				timerLabel.setFont("Bahnschrift-"+i*3);
-				add(timerLabel,this.getWidth()/2-timerLabel.getWidth()/2,this.getHeight()/2.0+timerLabel.getHeight()/2);
+				add(timerLabel,WIDTH/2.0-timerLabel.getWidth()/2.0,50+HEIGHT/2.0+timerLabel.getHeight()/4.0);
 				timerLabel.setLabel(""+time);
 			}
 			time--;
