@@ -57,11 +57,14 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 	
 	/** Number of lives */
-	private  int lives = 2;
+
+	private  int lives = 3;
 	private boolean isFinishGame = false;
 
     private RandomGenerator rgen = RandomGenerator.getInstance();
-
+	private GImage heart1;
+	private GImage heart2;
+	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
 	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
@@ -75,10 +78,12 @@ public class Breakout extends GraphicsProgram {
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		initScore();
+		initHearts();
 		drawBricks();
         initBall();
         initPaddle();
 		addMouseListeners();
+		pause(2000);
         startGame();
 	}
 
@@ -96,11 +101,18 @@ public class Breakout extends GraphicsProgram {
 		else if(findObjectForward()) vy *= -1;
 		else if(ball.getY()>HEIGHT){
 			lives--;
+			if (lives==2)
+				remove(heart3);
+			if (lives==1)
+				remove(heart2);
+			if (lives==0)
+				remove(heart1);
 			if(lives <= 0) {
 				isFinishGame = true;
 			} else {
 				remove(ball);
 				initBall();
+				pause(2000);
 			}
 		}
 
@@ -131,7 +143,8 @@ public class Breakout extends GraphicsProgram {
 					ball.move(0,-dif);
 				}
 				return true;
-			} else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH){
+			}
+			else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH){
 				remove(obj);
 				brickCount--;
 				updateScore(obj.getColor());
@@ -202,7 +215,6 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-
 		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 			paddle.move(1, 0);
 		}
@@ -210,6 +222,19 @@ public class Breakout extends GraphicsProgram {
 			paddle.move(-1, 0);
 		}
 	}
+
+	private void initHearts(){
+		heart1 = new GImage("Heart.png");
+		heart1.scale(0.08);
+		add(heart1, this.getWidth()-heart1.getWidth(),0);
+		heart2 = new GImage("Heart.png");
+		heart2.scale(0.08);
+		add(heart2, this.getWidth()-heart2.getWidth()*2,0);
+		heart3 = new GImage("Heart.png");
+		heart3.scale(0.08);
+		add(heart3, this.getWidth()-heart3.getWidth()*3,0);
+	}
+
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 10, 10);
 		add(scoreImage);
