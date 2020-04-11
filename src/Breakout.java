@@ -71,16 +71,20 @@ public class Breakout extends GraphicsProgram {
 	public void run() {
 		this.setSize(WIDTH+16,HEIGHT+62);
 		addMouseListeners();
-		paddle = CreatePaddle(PADDLE_WIDTH,PADDLE_HEIGHT,PADDLE_Y_OFFSET);
-		add(paddle);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		drawBricks();
         initBall();
+        initPaddle();
 
 	}
 
-    private void initBall() {
+	private void initPaddle() {
+		paddle = CreatePaddle(PADDLE_WIDTH,PADDLE_HEIGHT,PADDLE_Y_OFFSET);
+		add(paddle);
+	}
+
+	private void initBall() {
         vx = rgen.nextDouble(1.0, 3.0);
         if (rgen.nextBoolean(0.5)) vx = -vx;
         ball = new GOval(BALL_RADIUS*2,BALL_RADIUS*2);
