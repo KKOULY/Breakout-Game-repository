@@ -76,7 +76,6 @@ public class Breakout extends GraphicsProgram {
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		initScore();
-		initHearts();
 		drawBricks();
         initBall();
         initPaddle();
@@ -199,19 +198,6 @@ public class Breakout extends GraphicsProgram {
 			paddle.move(-1, 0);
 		}
 	}
-
-	private void initHearts(){
-		GImage heart1 = new GImage("Heart.png");
-		heart1.scale(0.08);
-		add(heart1, this.getWidth()-heart1.getWidth(),0);
-		GImage heart2 = new GImage("Heart.png");
-		heart2.scale(0.08);
-		add(heart2, this.getWidth()-heart2.getWidth()*2,0);
-		GImage heart3 = new GImage("Heart.png");
-		heart3.scale(0.08);
-		add(heart3, this.getWidth()-heart3.getWidth()*3,0);
-	}
-
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 10, 10);
 		add(scoreImage);
