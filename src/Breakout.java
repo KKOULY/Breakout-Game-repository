@@ -59,6 +59,12 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Number of lives */
 	private static final int LIVES = 2;
+
+    private RandomGenerator rgen = RandomGenerator.getInstance();
+
+	private GOval ball;
+	private double vx,vy;
+
 	
 	private GRect paddle;
 /* Method: run() */
@@ -71,10 +77,23 @@ public class Breakout extends GraphicsProgram {
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		drawBricks();
+        initBall();
 
 	}
 
-	private Color returnCol (int num){
+    private void initBall() {
+        vx = rgen.nextDouble(1.0, 3.0);
+        if (rgen.nextBoolean(0.5)) vx = -vx;
+        ball = new GOval(BALL_RADIUS*2,BALL_RADIUS*2);
+        double startX = WIDTH/2.0-ball.getWidth()/2.0;
+        double startY = HEIGHT/2.0-ball.getHeight()/2.0;
+        ball.setFilled(true);
+        Color ballCol = new Color(203,41,244);
+        ball.setColor(ballCol);
+        add(ball,startX,startY);
+    }
+
+    private Color returnCol (int num){
 			switch (num){
 				case 0: return Color.red;
 				case 1: return Color.orange;
@@ -117,6 +136,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
+
 		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 			paddle.move(1, 0);
 		}
@@ -124,4 +144,5 @@ public class Breakout extends GraphicsProgram {
 			paddle.move(-1, 0);
 		}
 	}
+
 }
