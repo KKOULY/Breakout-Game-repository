@@ -57,16 +57,9 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 	
 	/** Number of lives */
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 	private  int lives = 3;
 	private boolean isFinishGame = false;
-=======
-	private static final int LIVES = 2;
->>>>>>> parent of 66bade4... Merge pull request #6 from KKOULY/Collision
-=======
-	private static final int LIVES = 2;
->>>>>>> parent of 66bade4... Merge pull request #6 from KKOULY/Collision
 
     private RandomGenerator rgen = RandomGenerator.getInstance();
 
