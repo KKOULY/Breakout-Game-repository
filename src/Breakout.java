@@ -63,8 +63,8 @@ public class Breakout extends GraphicsProgram {
 
 	private GOval ball;
 	private double vx,vy;
-
-	
+	private int score=0;
+	private GLabel scoreLabel;
 	private GRect paddle;
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -73,10 +73,10 @@ public class Breakout extends GraphicsProgram {
 		addMouseListeners();
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
+		initScore();
 		drawBricks();
         initBall();
         initPaddle();
-
 	}
 
 	private void initPaddle() {
@@ -147,5 +147,16 @@ public class Breakout extends GraphicsProgram {
 			paddle.move(-1, 0);
 		}
 	}
+	private void  initScore(){
+		GImage scoreImage = new GImage("ScorePNG.png", 10, 10);
+		add(scoreImage);
+		scoreLabel = new GLabel(""+score,120,25);
+		scoreLabel.setFont("Bahnschrift-30");
+		scoreLabel.setColor(Color.white);
+		add(scoreLabel);
+	}
 
+	private void UpdateScore(){
+	scoreLabel.setLabel(""+score);
+	}
 }
