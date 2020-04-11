@@ -83,7 +83,7 @@ public class Breakout extends GraphicsProgram {
         initBall();
         initPaddle();
 		addMouseListeners();
-		pause(2000);
+		timer();
         startGame();
 	}
 
@@ -112,7 +112,7 @@ public class Breakout extends GraphicsProgram {
 			} else {
 				remove(ball);
 				initBall();
-				pause(2000);
+				timer();
 			}
 		}
 
@@ -256,5 +256,19 @@ public class Breakout extends GraphicsProgram {
 	if(brickColor == Color.cyan)
 		score++;
 	scoreLabel.setLabel(""+score);
+	}
+
+	private void timer(){
+		int time = 3;
+		GLabel timerLabel = new GLabel(""+time);
+		timerLabel.setFont("Bahnschrift-40");
+		timerLabel.setColor(Color.white);
+		add(timerLabel,this.getWidth()/2-timerLabel.getWidth()/2,this.getHeight()/2-timerLabel.getHeight()/2);
+		while (time!=0){
+			pause(1000);
+			time--;
+			timerLabel.setLabel(""+time);
+		}
+		remove(timerLabel);
 	}
 }
