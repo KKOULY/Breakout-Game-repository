@@ -91,6 +91,7 @@ public class Breakout extends GraphicsProgram {
 
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) vx *= -1;
+		else if(ball.getY() < 0);
 		else if(findObjectForward()) vy *= -1;
 	}
 
