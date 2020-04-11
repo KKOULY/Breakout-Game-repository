@@ -62,7 +62,9 @@ public class Breakout extends GraphicsProgram {
 	private boolean isFinishGame = false;
 
     private RandomGenerator rgen = RandomGenerator.getInstance();
-
+	private GImage heart1;
+	private GImage heart2;
+	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
 	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
@@ -81,6 +83,7 @@ public class Breakout extends GraphicsProgram {
         initBall();
         initPaddle();
 		addMouseListeners();
+		pause(2000);
         startGame();
 	}
 
@@ -98,11 +101,18 @@ public class Breakout extends GraphicsProgram {
 		else if(findObjectForward()) vy *= -1;
 		else if(ball.getY()>HEIGHT){
 			lives--;
+			if (lives==2)
+				remove(heart3);
+			if (lives==1)
+				remove(heart2);
+			if (lives==0)
+				remove(heart1);
 			if(lives <= 0) {
 				isFinishGame = true;
 			} else {
 				remove(ball);
 				initBall();
+				pause(2000);
 			}
 		}
 
@@ -205,7 +215,6 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-
 		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 			paddle.move(1, 0);
 		}
@@ -215,13 +224,13 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void initHearts(){
-		GImage heart1 = new GImage("Heart.png");
+		heart1 = new GImage("Heart.png");
 		heart1.scale(0.08);
 		add(heart1, this.getWidth()-heart1.getWidth(),0);
-		GImage heart2 = new GImage("Heart.png");
+		heart2 = new GImage("Heart.png");
 		heart2.scale(0.08);
 		add(heart2, this.getWidth()-heart2.getWidth()*2,0);
-		GImage heart3 = new GImage("Heart.png");
+		heart3 = new GImage("Heart.png");
 		heart3.scale(0.08);
 		add(heart3, this.getWidth()-heart3.getWidth()*3,0);
 	}
