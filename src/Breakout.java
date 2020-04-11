@@ -105,8 +105,12 @@ public class Breakout extends GraphicsProgram {
 		return returnCol(ColorsNum);
 	}
 
+
 	private void temp(){
 		println();
+  }
+	private void Paddle(){
+
 	}
 
 }
