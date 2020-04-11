@@ -103,9 +103,6 @@ public class Breakout extends GraphicsProgram {
 		int boundaryNumberOfRows = NBRICK_ROWS/numberOfColors;
 		int ColorsNum = i/boundaryNumberOfRows;
 		return returnCol(ColorsNum);
-
-
-
 	}
 
 }
