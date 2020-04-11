@@ -107,12 +107,17 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		while(e.getX()-30>paddle.getX() && paddle.getX()<this.getWidth()-30) {
+		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 30) {
 			paddle.move(1, 0);
 		}
-		while (e.getX()-30<paddle.getX()) {
+		while (e.getX() - 30 < paddle.getX()) {
 			paddle.move(-1, 0);
 		}
+	}
+
+
+	private void temp(){
+		println();
 	}
 
 }
