@@ -71,13 +71,13 @@ public class Breakout extends GraphicsProgram {
 /** Runs the Breakout program. */
 	public void run() {
 		this.setSize(WIDTH+16,HEIGHT+62);
-		addMouseListeners();
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		initScore();
 		drawBricks();
         initBall();
         initPaddle();
+		addMouseListeners();
         startGame();
 	}
 
