@@ -67,6 +67,7 @@ public class Breakout extends GraphicsProgram {
 	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
+	private int speedLevel = 1;
 	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
 	private int score=0;
 	private GLabel scoreLabel;
@@ -151,16 +152,15 @@ public class Breakout extends GraphicsProgram {
 
 	private boolean findObjectForward() {
 		GObject obj;
-		boolean flag = false;
 		obj = getElementAt(ball.getX(),ball.getY());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX(),ball.getY()+ball.getHeight());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY()+ball.getHeight());
-		if(isBrickOrPaddle(obj)) flag = true;
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX()+ball.getWidth(),ball.getY());
-		if(isBrickOrPaddle(obj)) flag = true;
-		return flag;
+		if(isBrickOrPaddle(obj)) return true;
+		return false;
 	}
 
 	private boolean isBrickOrPaddle(GObject obj) {
@@ -176,10 +176,43 @@ public class Breakout extends GraphicsProgram {
 				remove(obj);
 				brickCount--;
 				updateScore(obj.getColor());
+				updateSpeed(obj.getColor());
 				return true;
 			} else return false;
 		}
 		return false;
+	}
+
+	private void updateSpeed(Color brickColor) {
+		double k = 2.0;
+		if(brickColor == Color.red){
+			if(speedLevel == 4) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		} else if(brickColor == Color.orange){
+			if(speedLevel == 3) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		}else if(brickColor == Color.yellow){
+			if(speedLevel == 2) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		}else if(brickColor == Color.green){
+			if(speedLevel == 1) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		} else if(brickColor == Color.cyan){
+			vy = vy;
+			vx = vx;
+		}
 	}
 
 	private void initPaddle() {
@@ -243,11 +276,13 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
-			paddle.move(1, 0);
-		}
-		while (e.getX() - 30 < paddle.getX() && paddle.getX()>0) {
-			paddle.move(-1, 0);
+		if(!isFinishGame) {
+			while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
+				paddle.move(1, 0);
+			}
+			while (e.getX() - 30 < paddle.getX() && paddle.getX() > 0) {
+				paddle.move(-1, 0);
+			}
 		}
 	}
 
