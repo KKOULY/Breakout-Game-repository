@@ -184,7 +184,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void updateSpeed(Color brickColor) {
-		double k = 2.0;
+		double k = 1.25;
 		if(brickColor == Color.red){
 			if(speedLevel == 4) {
 				speedLevel++;
