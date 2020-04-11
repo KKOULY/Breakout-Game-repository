@@ -120,8 +120,8 @@ public class Breakout extends GraphicsProgram {
 			else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH){
 				remove(obj);
 				brickCount--;
-				return true;
 				updateScore(obj.getColor());
+				return true;
 			} else return false;
 		}
 		return false;
@@ -205,7 +205,17 @@ public class Breakout extends GraphicsProgram {
 		add(scoreLabel);
 	}
 
-	private void UpdateScore(){
+	private void updateScore(Color brickColor){
+	if(brickColor == Color.cyan)
+		score += 5;
+	if(brickColor == Color.orange)
+		score += 4;
+	if(brickColor == Color.yellow)
+		score += 3;
+	if(brickColor == Color.green)
+		score += 2;
+	if(brickColor == Color.cyan)
+		score++;
 	scoreLabel.setLabel(""+score);
 	}
 }
