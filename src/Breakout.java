@@ -206,7 +206,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void updateScore(Color brickColor){
-	if(brickColor == Color.cyan)
+	if(brickColor == Color.red)
 		score += 5;
 	if(brickColor == Color.orange)
 		score += 4;
