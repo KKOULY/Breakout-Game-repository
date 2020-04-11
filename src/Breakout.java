@@ -66,12 +66,14 @@ public class Breakout extends GraphicsProgram {
 	private double vx,vy;
 
 	
-
+	private GRect paddle;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
 		this.setSize(WIDTH+16,HEIGHT+62);
 		addMouseListeners();
+		paddle = CreatePaddle(PADDLE_WIDTH,PADDLE_HEIGHT,PADDLE_Y_OFFSET);
+		add(paddle);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		drawBricks();
@@ -125,18 +127,22 @@ public class Breakout extends GraphicsProgram {
 		return returnCol(ColorsNum);
 	}
 
+	private GRect CreatePaddle(int paddleWidth,int paddleHeight, int yOffset){
+		Color paddleColor = new Color(223,245,119);
+		GRect paddle = new GRect(0,getHeight()-yOffset-paddleHeight,paddleWidth,paddleHeight);
+		paddle.setFilled(true);
+		paddle.setColor(paddleColor);
+		return paddle;
+	}
+
 	public void mouseMoved(MouseEvent e) {
-        Point paddle = null;
-        while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 30) {
+
+		while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 			paddle.move(1, 0);
 		}
-		while (e.getX() - 30 < paddle.getX()) {
+		while (e.getX() - 30 < paddle.getX() && paddle.getX()>0) {
 			paddle.move(-1, 0);
 		}
 	}
-
-
-
-	
 
 }
