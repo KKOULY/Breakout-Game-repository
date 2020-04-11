@@ -67,6 +67,7 @@ public class Breakout extends GraphicsProgram {
 	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
+	private int speedLevel = 1;
 	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
 	private int score=0;
 	private GLabel scoreLabel;
@@ -147,10 +148,43 @@ public class Breakout extends GraphicsProgram {
 				remove(obj);
 				brickCount--;
 				updateScore(obj.getColor());
+				updateSpeed(obj.getColor());
 				return true;
 			} else return false;
 		}
 		return false;
+	}
+
+	private void updateSpeed(Color brickColor) {
+		double k = 2.0;
+		if(brickColor == Color.red){
+			if(speedLevel == 4) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		} else if(brickColor == Color.orange){
+			if(speedLevel == 3) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		}else if(brickColor == Color.yellow){
+			if(speedLevel == 2) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		}else if(brickColor == Color.green){
+			if(speedLevel == 1) {
+				speedLevel++;
+				vy*=k;
+				vx*=k;
+			}
+		} else if(brickColor == Color.cyan){
+			vy = vy;
+			vx = vx;
+		}
 	}
 
 	private void initPaddle() {
