@@ -57,7 +57,7 @@ public class Breakout extends GraphicsProgram {
 	private static final int NTURNS = 3;
 	
 	/** Number of lives */
-	private  int lives = 2;
+	private  int lives = 3;
 	private boolean isFinishGame = false;
 
     private RandomGenerator rgen = RandomGenerator.getInstance();
