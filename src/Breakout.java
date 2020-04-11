@@ -104,14 +104,14 @@ public class Breakout extends GraphicsProgram {
 		finishRect.setFilled(true);
 		add(finishRect);
 		if (win == true){
-			GLabel winLabel = new GLabel("You win!");
+			GLabel winLabel = new GLabel("YOU WIN!");
 			winLabel.setFont("Bahnschrift-60");
 			winLabel.setColor(Color.white);
 			add(winLabel,this.getWidth()/2-winLabel.getWidth()/2,this.getHeight()/2.0+winLabel.getHeight()/2);
 		}
 		if (lose == true){
-			GLabel loseLabel = new GLabel("You lose.");
-			GLabel loseLabel2 = new GLabel("Your score: "+score);
+			GLabel loseLabel = new GLabel("YOU LOSE");
+			GLabel loseLabel2 = new GLabel("YOUR SCORE: "+score);
 			loseLabel.setFont("Bahnschrift-50");
 			loseLabel2.setFont("Bahnschrift-50");
 			loseLabel.setColor(Color.white);
@@ -119,7 +119,6 @@ public class Breakout extends GraphicsProgram {
 			add(loseLabel,this.getWidth()/2-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
 			add(loseLabel2,this.getWidth()/2-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
 		}
-
 	}
 
 	private void checkCollision() {
