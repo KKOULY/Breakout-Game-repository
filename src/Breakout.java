@@ -56,19 +56,18 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Number of lives */
 
-	private  int lives = 3;
+	private  int lives;
 	private boolean isFinishGame = false;
-
     private RandomGenerator rgen = RandomGenerator.getInstance();
 	private GImage heart1;
 	private GImage heart2;
 	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
-	private int speedLevel = 1;
+	private int speedLevel;
 	private double upSpeedCoefficient = 1.25;
-	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
-	private int score=0;
+	private int brickCount;
+	private int score;
 	private GLabel scoreLabel;
 	private GRect paddle;
 	private boolean win = false;
@@ -81,19 +80,28 @@ public class Breakout extends GraphicsProgram {
 		initAllElements();
 		addMouseListeners();
         startGame();
-        finishGame();
 	}
 
 	private void startGame() {
-		timer();
-		while (!isFinishGame) {
-			ball.move(vx, vy);
-			checkCollision();
-			pause(10);
+		while (true) {
+			pause(100);
+			if(!isFinishGame) {
+				timer();
+				while (!isFinishGame) {
+					ball.move(vx, vy);
+					checkCollision();
+					pause(10);
+				}
+				finishGame();
+			}
 		}
 	}
 
 	private void initAllElements() {
+		lives = 3;
+		score = 0;
+		speedLevel = 1;
+		brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
 		initScore();
 		initHearts();
 		drawBricks();
@@ -282,13 +290,22 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if(!isFinishGame && paddle != null) {
+		if(paddle != null) {
 			while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 				paddle.move(1, 0);
 			}
 			while (e.getX() - 30 < paddle.getX() && paddle.getX() > 0) {
 				paddle.move(-1, 0);
 			}
+		}
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		if(isFinishGame) {
+			this.removeAll();
+			initAllElements();
+			win = false;
+			isFinishGame = false;
 		}
 	}
 
