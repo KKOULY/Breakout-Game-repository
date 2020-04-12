@@ -78,23 +78,27 @@ public class Breakout extends GraphicsProgram {
 		this.setSize(WIDTH+16,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
-		initScore();
-		initHearts();
-		drawBricks();
-        initPaddle();
+		initAllElements();
 		addMouseListeners();
-        timer();
-		initBall();
         startGame();
         finishGame();
 	}
 
 	private void startGame() {
+		timer();
 		while (!isFinishGame) {
 			ball.move(vx, vy);
 			checkCollision();
 			pause(10);
 		}
+	}
+
+	private void initAllElements() {
+		initScore();
+		initHearts();
+		drawBricks();
+		initPaddle();
+		initBall();
 	}
 
 	private void finishGame(){
@@ -278,7 +282,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if(!isFinishGame) {
+		if(!isFinishGame && paddle != null) {
 			while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 				paddle.move(1, 0);
 			}
