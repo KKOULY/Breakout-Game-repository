@@ -66,6 +66,7 @@ public class Breakout extends GraphicsProgram {
 	private GOval ball;
 	private double vx,vy;
 	private int speedLevel = 1;
+	private double upSpeedCoefficient = 1.25;
 	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
 	private int score=0;
 	private GLabel scoreLabel;
@@ -128,7 +129,10 @@ public class Breakout extends GraphicsProgram {
 
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) vx *= -1;
-		else if(ball.getY() < 0) vy *= -1;
+		else if(ball.getY() < 0) {
+			upSpeed(4, upSpeedCoefficient);
+			vy *= -1;
+		}
 		else if(findObjectForward()) vy *= -1;
 		else if(ball.getY()>HEIGHT){
 			lives--;
@@ -157,6 +161,8 @@ public class Breakout extends GraphicsProgram {
 
 	private boolean findObjectForward() {
 		GObject obj;
+		obj = getElementAt(ball.getX()+ball.getWidth()/2.0,ball.getY());
+		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX(),ball.getY());
 		if(isBrickOrPaddle(obj)) return true;
 		obj = getElementAt(ball.getX(),ball.getY()+ball.getHeight());
@@ -189,31 +195,22 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void updateSpeed(Color brickColor) {
-		double k = 1.25;
 		if(brickColor == Color.red){
-			if(speedLevel <= 4) {
-				speedLevel++;
-				vy*=k;
-				vx*=k;
-			}
+			upSpeed(4, upSpeedCoefficient);
 		} else if(brickColor == Color.orange){
-			if(speedLevel <= 3) {
-				speedLevel++;
-				vy*=k;
-				vx*=k;
-			}
+			upSpeed(3, upSpeedCoefficient);
 		}else if(brickColor == Color.yellow){
-			if(speedLevel <= 2) {
-				speedLevel++;
-				vy*=k;
-				vx*=k;
-			}
+			upSpeed(2, upSpeedCoefficient);
 		}else if(brickColor == Color.green){
-			if(speedLevel == 1) {
-				speedLevel++;
-				vy*=k;
-				vx*=k;
-			}
+			upSpeed(1, upSpeedCoefficient);
+		}
+	}
+
+	private void upSpeed(int n, double k) {
+		if(n >= speedLevel){
+			speedLevel++;
+			vy*=k;
+			vx*=k;
 		}
 	}
 
