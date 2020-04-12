@@ -132,12 +132,14 @@ public class Breakout extends GraphicsProgram {
 		else if(findObjectForward()) vy *= -1;
 		else if(ball.getY()>HEIGHT){
 			lives--;
+			speedLevel = 1;
 			if (lives==2)
 				remove(heart3);
-			if (lives==1)
+			else if (lives==1)
 				remove(heart2);
-			if (lives==0)
+			else if (lives==0)
 				remove(heart1);
+
 			if(lives <= 0) {
 				isFinishGame = true;
 			} else {
@@ -189,19 +191,19 @@ public class Breakout extends GraphicsProgram {
 	private void updateSpeed(Color brickColor) {
 		double k = 1.25;
 		if(brickColor == Color.red){
-			if(speedLevel == 4) {
+			if(speedLevel <= 4) {
 				speedLevel++;
 				vy*=k;
 				vx*=k;
 			}
 		} else if(brickColor == Color.orange){
-			if(speedLevel == 3) {
+			if(speedLevel <= 3) {
 				speedLevel++;
 				vy*=k;
 				vx*=k;
 			}
 		}else if(brickColor == Color.yellow){
-			if(speedLevel == 2) {
+			if(speedLevel <= 2) {
 				speedLevel++;
 				vy*=k;
 				vx*=k;
@@ -262,9 +264,11 @@ public class Breakout extends GraphicsProgram {
 
 	private Color nextColor(int i) {
 		int numberOfColors = 5;
-		int boundaryNumberOfRows = NBRICK_ROWS/numberOfColors;
-		int ColorsNum = i/boundaryNumberOfRows;
-		return returnCol(ColorsNum);
+		if(NBRICK_ROWS > numberOfColors-1) {
+			int boundaryNumberOfRows = NBRICK_ROWS / numberOfColors;
+			int ColorsNum = i / boundaryNumberOfRows;
+			return returnCol(ColorsNum);
+		}else return returnCol(i);
 	}
 
 	private GRect CreatePaddle(){
