@@ -137,6 +137,10 @@ public class Breakout extends GraphicsProgram {
 //			add(loseLabel,this.getWidth()/2.0-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
 //			add(loseLabel2,this.getWidth()/2.0-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
 		}
+		GImage clickATR = new GImage("ClickATR.png");
+		clickATR.scale(0.6);
+		add(clickATR,WIDTH/2.0-clickATR.getWidth()/2.0,
+				(HEIGHT/4.0)*3-clickATR.getHeight()/2.0);
 	}
 
 	private void checkCollision() {
