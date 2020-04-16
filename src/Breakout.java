@@ -57,7 +57,7 @@ public class Breakout extends GraphicsProgram {
 	/** Number of lives */
 
 	private  int lives;
-	private boolean isFinishGame = false;
+	private boolean isFinishGame = true;
     private RandomGenerator rgen = RandomGenerator.getInstance();
 	private GImage heart1;
 	private GImage heart2;
@@ -71,31 +71,43 @@ public class Breakout extends GraphicsProgram {
 	private GLabel scoreLabel;
 	private GRect paddle;
 	private boolean win = false;
+	private Menu mn;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
 		this.setSize(WIDTH+19,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
-		initAllElements();
 		addMouseListeners();
-        startGame();
+        Game();
 	}
 
-	private void startGame() {
+	private void Game() {
+        mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
+        add(mn);
 		while (true) {
-			pause(100);
-			if(!isFinishGame) {
-				timer();
-				while (!isFinishGame) {
-					ball.move(vx, vy);
-					checkCollision();
-					pause(10);
-				}
-				finishGame();
-			}
+		    mn.changeNameColor();
+            pause(500);
+		    if(mn.getExitFlag()) exit();
+		    else if(mn.getStartFlag()) {
+		        println("1");
+		        remove(mn);
+		        isFinishGame = false;
+		        startGame();
+                finishGame();
+            }
 		}
 	}
+
+	private void startGame(){
+        initAllElements();
+        timer();
+        while (!isFinishGame) {
+            ball.move(vx, vy);
+            checkCollision();
+            pause(10);
+        }
+    }
 
 	private void initAllElements() {
 		lives = 3;
@@ -110,37 +122,31 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void finishGame(){
-		GRect finishRect = new GRect(0,BRICK_Y_OFFSET,this.getWidth(),this.getHeight());
-		finishRect.setFilled(true);
-		Color back = new Color(48,48,48);
-		finishRect.setColor(back);
-		add(finishRect);
-		if (win){
-			GImage youWin = new GImage("youWin.png");
-			youWin.scale(0.3);
-			add(youWin,WIDTH/2.0-youWin.getWidth()/2.0,HEIGHT/2.0-youWin.getHeight()/2.0);
-//			GLabel winLabel = new GLabel("YOU WIN!");
-//			winLabel.setFont("Bahnschrift-60");
-//			winLabel.setColor(Color.white);
-//			add(winLabel,this.getWidth()/2.0-winLabel.getWidth()/2,this.getHeight()/2.0+winLabel.getHeight()/2);
-		}
-		else{
-			GImage gameOver = new GImage("gameOver.png");
-			gameOver.scale(0.25);
-			add(gameOver,WIDTH/2.0-gameOver.getWidth()/2.0,HEIGHT/2.0-gameOver.getHeight()/2.0);
-//			GLabel loseLabel = new GLabel("YOU LOSE");
-//			GLabel loseLabel2 = new GLabel("YOUR SCORE: "+score);
-//			loseLabel.setFont("Bahnschrift-50");
-//			loseLabel2.setFont("Bahnschrift-50");
-//			loseLabel.setColor(Color.white);
-//			loseLabel2.setColor(Color.white);
-//			add(loseLabel,this.getWidth()/2.0-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
-//			add(loseLabel2,this.getWidth()/2.0-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
-		}
-		GImage clickATR = new GImage("ClickATR.png");
-		clickATR.scale(0.6);
-		add(clickATR,WIDTH/2.0-clickATR.getWidth()/2.0,
-				(HEIGHT/4.0)*3-clickATR.getHeight()/2.0);
+        this.removeAll();
+        mn.changeStartFlag(false);
+        win = false;
+        add(mn);
+
+
+//		GRect finishRect = new GRect(0,BRICK_Y_OFFSET,this.getWidth(),this.getHeight());
+//		finishRect.setFilled(true);
+//		Color back = new Color(48,48,48);
+//		finishRect.setColor(back);
+//		add(finishRect);
+//		if (win){
+//			GImage youWin = new GImage("youWin.png");
+//			youWin.scale(0.3);
+//			add(youWin,WIDTH/2.0-youWin.getWidth()/2.0,HEIGHT/2.0-youWin.getHeight()/2.0);
+//		}
+//		else{
+//			GImage gameOver = new GImage("gameOver.png");
+//			gameOver.scale(0.25);
+//			add(gameOver,WIDTH/2.0-gameOver.getWidth()/2.0,HEIGHT/2.0-gameOver.getHeight()/2.0);
+//		}
+//		GImage clickATR = new GImage("ClickATR.png");
+//		clickATR.scale(0.6);
+//		add(clickATR,WIDTH/2.0-clickATR.getWidth()/2.0,
+//				(HEIGHT/4.0)*3-clickATR.getHeight()/2.0);
 	}
 
 	private void checkCollision() {
@@ -294,23 +300,26 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if(paddle != null) {
-			while (e.getX() - paddle.getWidth()/2.0 > paddle.getX() && paddle.getX() < this.getWidth() - paddle.getWidth()) {
-				paddle.move(1, 0);
-			}
-			while (e.getX() - paddle.getWidth()/2.0 < paddle.getX() && paddle.getX() > 0) {
-				paddle.move(-1, 0);
-			}
-		}
+	    if(!isFinishGame) {
+            if (paddle != null) {
+                while (e.getX() - paddle.getWidth() / 2.0 > paddle.getX() && paddle.getX() < this.getWidth() - paddle.getWidth()) {
+                    paddle.move(1, 0);
+                }
+                while (e.getX() - paddle.getWidth() / 2.0 < paddle.getX() && paddle.getX() > 0) {
+                    paddle.move(-1, 0);
+                }
+            }
+        } else mn.mouseMoved(e);
 	}
 
 	public void mouseClicked(MouseEvent e) {
-		if(isFinishGame) {
-			this.removeAll();
-			initAllElements();
-			win = false;
-			isFinishGame = false;
-		}
+		if(!mn.getStartFlag()){
+		    mn.mouseClicked(e);
+        }
+//        this.removeAll();
+//        initAllElements();
+//        win = false;
+//        isFinishGame = false;
 	}
 
 	private void initHearts(){
