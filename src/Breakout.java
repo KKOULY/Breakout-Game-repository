@@ -56,19 +56,18 @@ public class Breakout extends GraphicsProgram {
 	
 	/** Number of lives */
 
-	private  int lives = 3;
+	private  int lives;
 	private boolean isFinishGame = false;
-
     private RandomGenerator rgen = RandomGenerator.getInstance();
 	private GImage heart1;
 	private GImage heart2;
 	private GImage heart3;
 	private GOval ball;
 	private double vx,vy;
-	private int speedLevel = 1;
+	private int speedLevel;
 	private double upSpeedCoefficient = 1.25;
-	private int brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
-	private int score=0;
+	private int brickCount;
+	private int score;
 	private GLabel scoreLabel;
 	private GRect paddle;
 	private boolean win = false;
@@ -78,23 +77,36 @@ public class Breakout extends GraphicsProgram {
 		this.setSize(WIDTH+16,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
-		initScore();
-		initHearts();
-		drawBricks();
-        initPaddle();
+		initAllElements();
 		addMouseListeners();
-        timer();
-		initBall();
         startGame();
-        finishGame();
 	}
 
 	private void startGame() {
-		while (!isFinishGame) {
-			ball.move(vx, vy);
-			checkCollision();
-			pause(10);
+		while (true) {
+			pause(100);
+			if(!isFinishGame) {
+				timer();
+				while (!isFinishGame) {
+					ball.move(vx, vy);
+					checkCollision();
+					pause(10);
+				}
+				finishGame();
+			}
 		}
+	}
+
+	private void initAllElements() {
+		lives = 3;
+		score = 0;
+		speedLevel = 1;
+		brickCount = NBRICK_ROWS*NBRICKS_PER_ROW;
+		initScore();
+		initHearts();
+		drawBricks();
+		initPaddle();
+		initBall();
 	}
 
 	private void finishGame(){
@@ -125,6 +137,10 @@ public class Breakout extends GraphicsProgram {
 //			add(loseLabel,this.getWidth()/2.0-loseLabel.getWidth()/2,this.getHeight()/2.0-loseLabel.getHeight()/2);
 //			add(loseLabel2,this.getWidth()/2.0-loseLabel2.getWidth()/2,this.getHeight()/2.0+loseLabel2.getHeight()/2);
 		}
+		GImage clickATR = new GImage("ClickATR.png");
+		clickATR.scale(0.6);
+		add(clickATR,WIDTH/2.0-clickATR.getWidth()/2.0,
+				(HEIGHT/4.0)*3-clickATR.getHeight()/2.0);
 	}
 
 	private void checkCollision() {
@@ -278,13 +294,22 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	public void mouseMoved(MouseEvent e) {
-		if(!isFinishGame) {
+		if(paddle != null) {
 			while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
 				paddle.move(1, 0);
 			}
 			while (e.getX() - 30 < paddle.getX() && paddle.getX() > 0) {
 				paddle.move(-1, 0);
 			}
+		}
+	}
+
+	public void mouseClicked(MouseEvent e) {
+		if(isFinishGame) {
+			this.removeAll();
+			initAllElements();
+			win = false;
+			isFinishGame = false;
 		}
 	}
 
