@@ -74,7 +74,7 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		this.setSize(WIDTH+16,HEIGHT+62);
+		this.setSize(WIDTH+19,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
 		initAllElements();
@@ -295,10 +295,10 @@ public class Breakout extends GraphicsProgram {
 
 	public void mouseMoved(MouseEvent e) {
 		if(paddle != null) {
-			while (e.getX() - 30 > paddle.getX() && paddle.getX() < this.getWidth() - 60) {
+			while (e.getX() - paddle.getWidth()/2.0 > paddle.getX() && paddle.getX() < this.getWidth() - paddle.getWidth()) {
 				paddle.move(1, 0);
 			}
-			while (e.getX() - 30 < paddle.getX() && paddle.getX() > 0) {
+			while (e.getX() - paddle.getWidth()/2.0 < paddle.getX() && paddle.getX() > 0) {
 				paddle.move(-1, 0);
 			}
 		}
