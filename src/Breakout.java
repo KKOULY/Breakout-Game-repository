@@ -90,9 +90,7 @@ public class Breakout extends GraphicsProgram {
             pause(500);
 		    if(mn.getExitFlag()) exit();
 		    else if(mn.getStartFlag()) {
-		        println("1");
 		        remove(mn);
-		        isFinishGame = false;
 		        startGame();
                 finishGame();
             }
@@ -100,6 +98,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void startGame(){
+        isFinishGame = false;
+        win = false;
         initAllElements();
         timer();
         while (!isFinishGame) {
@@ -123,30 +123,9 @@ public class Breakout extends GraphicsProgram {
 
 	private void finishGame(){
         this.removeAll();
+        mn.initAfterGameMenu(score,win);
         mn.changeStartFlag(false);
-        win = false;
         add(mn);
-
-
-//		GRect finishRect = new GRect(0,BRICK_Y_OFFSET,this.getWidth(),this.getHeight());
-//		finishRect.setFilled(true);
-//		Color back = new Color(48,48,48);
-//		finishRect.setColor(back);
-//		add(finishRect);
-//		if (win){
-//			GImage youWin = new GImage("youWin.png");
-//			youWin.scale(0.3);
-//			add(youWin,WIDTH/2.0-youWin.getWidth()/2.0,HEIGHT/2.0-youWin.getHeight()/2.0);
-//		}
-//		else{
-//			GImage gameOver = new GImage("gameOver.png");
-//			gameOver.scale(0.25);
-//			add(gameOver,WIDTH/2.0-gameOver.getWidth()/2.0,HEIGHT/2.0-gameOver.getHeight()/2.0);
-//		}
-//		GImage clickATR = new GImage("ClickATR.png");
-//		clickATR.scale(0.6);
-//		add(clickATR,WIDTH/2.0-clickATR.getWidth()/2.0,
-//				(HEIGHT/4.0)*3-clickATR.getHeight()/2.0);
 	}
 
 	private void checkCollision() {
@@ -292,7 +271,7 @@ public class Breakout extends GraphicsProgram {
 
 	private GRect CreatePaddle(){
 		Color paddleColor = new Color(223,245,119);
-		GRect paddle = new GRect(0,getHeight()- Breakout.PADDLE_Y_OFFSET - Breakout.PADDLE_HEIGHT,
+		GRect paddle = new GRect(WIDTH/2.0-PADDLE_WIDTH/2.0,getHeight()- Breakout.PADDLE_Y_OFFSET - Breakout.PADDLE_HEIGHT,
 				Breakout.PADDLE_WIDTH, Breakout.PADDLE_HEIGHT);
 		paddle.setFilled(true);
 		paddle.setColor(paddleColor);
@@ -316,10 +295,6 @@ public class Breakout extends GraphicsProgram {
 		if(!mn.getStartFlag()){
 		    mn.mouseClicked(e);
         }
-//        this.removeAll();
-//        initAllElements();
-//        win = false;
-//        isFinishGame = false;
 	}
 
 	private void initHearts(){
