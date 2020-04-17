@@ -1,5 +1,6 @@
 import acm.graphics.*;
 import acm.util.RandomGenerator;
+import acm.util.SoundClip;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -30,8 +31,12 @@ public class Menu extends GCompound {
     private double height;
     private String name;
 
+
     private double buttonWight;
     private double buttonHeight;
+  
+    private SoundClip music;
+
 
     public Menu(String name, double wight, double height){
         this.wight = wight;
@@ -43,10 +48,16 @@ public class Menu extends GCompound {
         initAllElements();
         initStartMenu();
     }
+  
+ private void musicStart(){
+        music = new SoundClip("menuMusic.au");
+        music.setVolume(0.2);
+        music.loop();
+    }
 
     private void initAllElements() {
         String mainFont = "GameOver";
-
+     
         nameGame = new GLabel(name);
         nameGame.setFont(mainFont+"-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
@@ -88,6 +99,7 @@ public class Menu extends GCompound {
 
     }
     private void removeAfterGameMenu(){
+        music.stop();
         remove(restartButton);
         remove(backButton);
         remove(gameOverLabel);
@@ -97,6 +109,11 @@ public class Menu extends GCompound {
     }
 
     private void initStartMenu() {
+        musicStart();
+        nameGame = new GLabel(name);
+        nameGame.setFont("GameOver-"+(int)(wight/3.0));
+        nameGame.setColor(Color.red);
+
         add(nameGame,wight/2.0-nameGame.getWidth()/2.0,height/5.0+nameGame.getHeight()/4.0);
         double y = height/2.0- startButton.getHeight()/2.0;
         double sep = (startButton.getHeight()/4.0);
@@ -106,10 +123,13 @@ public class Menu extends GCompound {
     }
 
     private void removeStartMenu(){
-        remove(nameGame);
-        remove(startButton);
-        remove(scoreButton);
-        remove(exitButton);
+        music.stop();
+        remove(restartButton);
+        remove(backButton);
+        remove(gameOverLabel);
+        remove(winLabel);
+        remove(loseLabe);
+        remove(scoreLabel);
     }
 
     private void initScoreMenu(){
