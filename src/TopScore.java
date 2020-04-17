@@ -1,20 +1,22 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.ErrorException;
+import com.sun.source.tree.Scope;
 
 import java.awt.*;
 import java.io.*;
 
 public class TopScore extends GCompound{
-    private String s1 = "1#  ";
-    private String s2 = "2#  ";
-    private String s3 = "3#  ";
-    private String s4 = "4#  ";
-    private String s5 = "5#  ";
-    private String s6 = "6#  ";
-    private String s7 = "7#  ";
-    private String s8 = "8#  ";
-    private String s9 = "9#  ";
+
+    private Score s1 = new Score();
+    private Score s2 = new Score();
+    private Score s3 = new Score();
+    private Score s4 = new Score();
+    private Score s5 = new Score();
+    private Score s6 = new Score();
+    private Score s7 = new Score();
+    private Score s8 = new Score();
+    private Score s9 = new Score();
 
     private double wight;
     private double height;
@@ -30,14 +32,14 @@ public class TopScore extends GCompound{
         double sep = (height-(labelHeight*10.0))/10.0;
         String font = findFont("GameOver", labelHeight);
         for(int i = 0; i< 9;i++){
-            GLabel label = new GLabel(nextString(i));
-            label.setFont(font);
-            label.setColor(Color.white);
-            add(label,wight/2.0-label.getWidth()/2.0,labelHeight*(i+1)+sep*i);
+            Score temp = nextScore(i);
+            temp.setFont(font);
+            temp.setColor(Color.white);
+            add(temp,wight/2.0-temp.getWidth()/2.0,labelHeight*(i+1)+sep*i);
         }
     }
 
-    private String nextString(int i) {
+    private Score nextScore(int i) {
         switch (i){
             case 0:
                 return s1;
@@ -58,7 +60,7 @@ public class TopScore extends GCompound{
             case 8:
                 return s9;
         }
-        return "notFindStr";
+        return null;
     }
 
     private String findFont(String font, double maxHeight) {
@@ -77,29 +79,58 @@ public class TopScore extends GCompound{
     private void initScores(String filePath) {
         try{
             BufferedReader reader = new BufferedReader( new FileReader(filePath));
-            s1 = writeLineInto(reader,s1);
-            s2 = writeLineInto(reader,s2);
-            s3 = writeLineInto(reader,s3);
-            s4 = writeLineInto(reader,s4);
-            s5 = writeLineInto(reader,s5);
-            s6 = writeLineInto(reader,s6);
-            s7 = writeLineInto(reader,s7);
-            s8 = writeLineInto(reader,s8);
-            s9 = writeLineInto(reader,s9);
+            s1.setNum(writeLine(reader));
+            s2.setNum(writeLine(reader));
+            s3.setNum(writeLine(reader));
+            s4.setNum(writeLine(reader));
+            s5.setNum(writeLine(reader));
+            s6.setNum(writeLine(reader));
+            s7.setNum(writeLine(reader));
+            s8.setNum(writeLine(reader));
+            s9.setNum(writeLine(reader));
+            reader.close();
+
         } catch (FileNotFoundException ignored){
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private String writeLineInto(BufferedReader reader, String s) {
+    public void refreshScore(int score){
+        int temp = score;
+        boolean refreshFlag = false;
+        for(int i = 0;i < s1.getCount()-1;i++){
+            Score sc = nextScore(i);
+            if(temp > sc.getNum()){
+                int del = sc.getNum();
+                sc.setNum(temp);
+                temp = del;
+                refreshFlag = true;
+            }
+        }
+        if(refreshFlag){
+            saveScores();
+        }
+    }
+
+    private void saveScores() {
+        try {
+            PrintWriter wr = new PrintWriter(new FileWriter("topScore.txt"));
+            for(int i = 0;i < s1.getCount()-1;i++){
+                wr.println(nextScore(i).getNum());
+            }
+            wr.close();
+        }catch (IOException e){
+            throw new ErrorException(e);
+        }
+    }
+
+    private String writeLine(BufferedReader reader) {
         try {
             String str = reader.readLine();
             if(str != null) {
-                for(int i = 0;i < (3-str.length());i++){
-                    s+="0";
-                }
-                s+=str;
-                return s;
-            } else return s+"000";
+                return str;
+            } else return "0";
         }catch (IOException e){
             throw new ErrorException(e);
         }
