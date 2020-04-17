@@ -75,6 +75,9 @@ public class Breakout extends GraphicsProgram {
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
+		SoundClip sound = new SoundClip("gimn.au");
+		sound.setVolume(1);
+		sound.loop();
 		this.setSize(WIDTH+19,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
