@@ -156,7 +156,7 @@ public class Breakout extends GraphicsProgram {
 			vy *= -1;
 		}
 		else if(findObjectForward()) {
-			playPunchSound();
+			playPunchSound(); 
 			vy *= -1;
 		}
 		else if(ball.getY()>HEIGHT){

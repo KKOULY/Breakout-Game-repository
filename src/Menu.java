@@ -1,5 +1,6 @@
 import acm.graphics.*;
 import acm.util.RandomGenerator;
+import acm.util.SoundClip;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -24,15 +25,24 @@ public class Menu extends GCompound {
     private double height;
     private String name;
 
+    private SoundClip music;
+
     public Menu(String name, double wight, double height){
         this.wight = wight;
         this.height = height;
         this.name = name;
+        musicStart();
         drawBackGround();
         initStartMenu();
     }
-
+    private void musicStart(){
+        music = new SoundClip("menuMusic.au");
+        music.setVolume(0.2);
+        music.loop();
+    }
     public void initAfterGameMenu(int score, boolean win) {
+        musicStart();
+        
         restartButton = new Button("RESTART",wight/2.0,height/10.0);
         add(restartButton,wight/2.0- startButton.getWidth()/2.0,height/2.0- startButton.getHeight()/2.0);
         backButton = new Button("BACK",wight/2.0,height/10.0);
@@ -58,6 +68,7 @@ public class Menu extends GCompound {
 
     }
     private void removeAfterGameMenu(){
+        music.stop();
         remove(restartButton);
         remove(backButton);
         remove(gameOverLabel);
@@ -77,6 +88,7 @@ public class Menu extends GCompound {
     }
 
     private void removeStartMenu(){
+        music.stop();
         remove(nameGame);
         remove(startButton);
         remove(exitButton);
