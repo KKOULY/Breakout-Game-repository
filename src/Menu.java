@@ -12,6 +12,9 @@ public class Menu extends GCompound {
     private Button restartButton;
     private Button backButton;
 
+    private TopScore tops;
+    private GLabel topScoreLabel;
+
 
     private GLabel nameGame;
 
@@ -42,9 +45,10 @@ public class Menu extends GCompound {
     }
 
     private void initAllElements() {
+        String mainFont = "GameOver";
 
         nameGame = new GLabel(name);
-        nameGame.setFont("GameOver-"+(int)(wight/3.0));
+        nameGame.setFont(mainFont+"-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
         startButton = new Button("START",buttonWight,buttonHeight);
         scoreButton = new Button("TOP SCORE",buttonWight,buttonHeight);
@@ -55,14 +59,19 @@ public class Menu extends GCompound {
         winLabel = new GLabel("YOU WIN");
         loseLabe = new GLabel("YOU LOSE");
         scoreLabel = new GLabel("your score: 0");
-        gameOverLabel.setFont("GameOver-"+(int)(wight/2.5));
-        winLabel.setFont("GameOver-"+(int)(wight/2.5));
-        loseLabe.setFont("GameOver-"+(int)(wight/2.5));
-        scoreLabel.setFont("GameOver-"+(int)(wight/5));
+        gameOverLabel.setFont(mainFont+"-"+(int)(wight/2.5));
+        winLabel.setFont(mainFont+"-"+(int)(wight/2.5));
+        loseLabe.setFont(mainFont+"-"+(int)(wight/2.5));
+        scoreLabel.setFont(mainFont+"-"+(int)(wight/5));
         gameOverLabel.setColor(Color.white);
         winLabel.setColor(Color.white);
         loseLabe.setColor(Color.white);
         scoreLabel.setColor(Color.white);
+
+        topScoreLabel = new GLabel("TOP SCORE");
+        topScoreLabel.setFont(mainFont+"-"+(int)(wight/3.0));
+        topScoreLabel.setColor(Color.white);
+        tops = new TopScore("topScore.txt",400,400);
     }
 
     public void initAfterGameMenu(int score, boolean win) {
@@ -104,10 +113,15 @@ public class Menu extends GCompound {
     }
 
     private void initScoreMenu(){
-        add(backButton,wight/2.0- backButton.getWidth()/2.0,height/2.0+height/4.0- backButton.getHeight()/2.0);
+        add(topScoreLabel,wight/2.0-topScoreLabel.getWidth()/2.0,height/10);
+        add(tops,0,height/8);
+        add(backButton,wight/2.0- backButton.getWidth()/2.0,height/2.0+height/4.0 + backButton.getHeight()/2.0);
     }
 
+
     private void removeScoreMenu(){
+        remove(topScoreLabel);
+        remove(tops);
         remove(backButton);
     }
 
