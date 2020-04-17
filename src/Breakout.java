@@ -73,6 +73,7 @@ public class Breakout extends GraphicsProgram {
 	private boolean win = false;
 	private Menu mn;
 	private SoundClip punchSound;
+	private SoundClip tema;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -87,6 +88,7 @@ public class Breakout extends GraphicsProgram {
         mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
         add(mn);
         punchSound = initSound("punch.au",0.20);
+        tema = initSound("tema.au", 0.20);
 		while (true) {
 		    mn.changeNameColor();
             pause(500);
@@ -100,6 +102,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void startGame(){
+		tema.loop();
         isFinishGame = false;
         win = false;
         initAllElements();
