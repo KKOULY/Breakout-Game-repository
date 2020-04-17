@@ -65,7 +65,7 @@ public class Breakout extends GraphicsProgram {
 	private GOval ball;
 	private double vx,vy;
 	private int speedLevel;
-	private double upSpeedCoefficient = 1.25;
+	private double upSpeedCoefficient = 1.2;
 	private int brickCount;
 	private int score;
 	private GLabel scoreLabel;
@@ -80,12 +80,12 @@ public class Breakout extends GraphicsProgram {
 		this.setSize(WIDTH+19,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
+		mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
 		addMouseListeners();
         Game();
 	}
 
 	private void Game() {
-        mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
         add(mn);
 		while (true) {
 		    mn.changeNameColor();
@@ -99,7 +99,7 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	private void playPunchSound(){
-		if (punchSound.isStereo()==false) punchSound.play();
+		if (!punchSound.isStereo()) punchSound.play();
 		else{
 			punchSound.stop();
 			punchSound.rewind();
