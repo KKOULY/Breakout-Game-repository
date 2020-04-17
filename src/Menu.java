@@ -31,7 +31,6 @@ public class Menu extends GCompound {
         this.wight = wight;
         this.height = height;
         this.name = name;
-        musicStart();
         drawBackGround();
         initStartMenu();
     }
@@ -42,7 +41,7 @@ public class Menu extends GCompound {
     }
     public void initAfterGameMenu(int score, boolean win) {
         musicStart();
-        
+
         restartButton = new Button("RESTART",wight/2.0,height/10.0);
         add(restartButton,wight/2.0- startButton.getWidth()/2.0,height/2.0- startButton.getHeight()/2.0);
         backButton = new Button("BACK",wight/2.0,height/10.0);
@@ -77,6 +76,7 @@ public class Menu extends GCompound {
     }
 
     private void initStartMenu() {
+        musicStart();
         nameGame = new GLabel(name);
         nameGame.setFont("GameOver-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
