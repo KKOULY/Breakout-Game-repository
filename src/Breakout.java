@@ -10,7 +10,7 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
-
+import javax.naming.Name;
 import java.awt.*;
 import java.awt.event.*;
 
@@ -72,12 +72,10 @@ public class Breakout extends GraphicsProgram {
 	private GRect paddle;
 	private boolean win = false;
 	private Menu mn;
+	private SoundClip punchSound;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
-		SoundClip sound = new SoundClip("gimn.au");
-		sound.setVolume(1);
-		sound.loop();
 		this.setSize(WIDTH+19,HEIGHT+62);
 		Color backgroundCol = new Color(48,48,48);
 		this.setBackground(backgroundCol);
@@ -88,6 +86,7 @@ public class Breakout extends GraphicsProgram {
 	private void Game() {
         mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
         add(mn);
+        punchSound = initSound("punch.au",0.20);
 		while (true) {
 		    mn.changeNameColor();
             pause(500);
@@ -111,7 +110,11 @@ public class Breakout extends GraphicsProgram {
             pause(10);
         }
     }
-
+	private SoundClip initSound(String soundName, double volume){
+		SoundClip sound = new SoundClip(soundName);
+		sound.setVolume(volume);
+		return sound;
+	}
 	private void initAllElements() {
 		lives = 3;
 		score = 0;
@@ -132,12 +135,19 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void checkCollision() {
-		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) vx *= -1;
+		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
+			punchSound.play();
+			vx *= -1;
+		}
 		else if(ball.getY() < 0) {
+			punchSound.play();
 			upSpeed(4, upSpeedCoefficient);
 			vy *= -1;
 		}
-		else if(findObjectForward()) vy *= -1;
+		else if(findObjectForward()) {
+			punchSound.play();
+			vy *= -1;
+		}
 		else if(ball.getY()>HEIGHT){
 			lives--;
 			speedLevel = 1;
