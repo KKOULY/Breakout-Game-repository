@@ -123,13 +123,10 @@ public class Menu extends GCompound {
     }
 
     private void removeStartMenu(){
-        music.stop();
-        remove(restartButton);
-        remove(backButton);
-        remove(gameOverLabel);
-        remove(winLabel);
-        remove(loseLabe);
-        remove(scoreLabel);
+        remove(startButton);
+        remove(scoreButton);
+        remove(exitButton);
+        remove(nameGame);
     }
 
     private void initScoreMenu(){
@@ -185,6 +182,7 @@ public class Menu extends GCompound {
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
+                music.stop();
                 startFlag = true;
             } else if(lastButton == restartButton){
                 lastButton.changeColor(false);
