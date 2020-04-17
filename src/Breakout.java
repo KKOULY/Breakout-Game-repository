@@ -87,8 +87,6 @@ public class Breakout extends GraphicsProgram {
 	private void Game() {
         mn = new Menu("BREACKOUT",WIDTH,HEIGHT);
         add(mn);
-        punchSound = initSound("punch.au",0.20);
-        tema = initSound("tema.au", 0.20);
 		while (true) {
 		    mn.changeNameColor();
             pause(500);
@@ -100,8 +98,17 @@ public class Breakout extends GraphicsProgram {
             }
 		}
 	}
-
+	private void playPunchSound(){
+		if (punchSound.isStereo()==false) punchSound.play();
+		else{
+			punchSound.stop();
+			punchSound.rewind();
+			punchSound.play();
+		}
+	}
 	private void startGame(){
+		punchSound = initSound("punch.au",1);
+		tema = initSound("tema.au", 0.1);
 		tema.loop();
         isFinishGame = false;
         win = false;
@@ -131,6 +138,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	private void finishGame(){
+		tema.stop();
         this.removeAll();
         mn.initAfterGameMenu(score,win);
         mn.changeStartFlag(false);
@@ -139,16 +147,16 @@ public class Breakout extends GraphicsProgram {
 
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
-			punchSound.play();
+			playPunchSound();
 			vx *= -1;
 		}
 		else if(ball.getY() < 0) {
-			punchSound.play();
+			playPunchSound();
 			upSpeed(4, upSpeedCoefficient);
 			vy *= -1;
 		}
 		else if(findObjectForward()) {
-			punchSound.play();
+			playPunchSound();
 			vy *= -1;
 		}
 		else if(ball.getY()>HEIGHT){
