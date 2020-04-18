@@ -46,7 +46,7 @@ public class SettingsMenu extends GCompound {
     private void initAllElements() {
             musicButton = new Button(musicPlay?"ON":"OFF",buttonSize,buttonSize);
             soundEffectsButton = new Button(soundEffectsPlay?"ON":"OFF",buttonSize,buttonSize);
-            difficultButton = new Button(difficultToString(),buttonSize*2.5,buttonSize);
+            difficultButton = new Button(difficultToString(),buttonSize*2.8,buttonSize);
             initBackground();
             String font = "GameOver-"+(int)(wight/4.5);
             musicLabel.setFont(font);
@@ -56,11 +56,11 @@ public class SettingsMenu extends GCompound {
             soundEffectsLabel.setColor(Color.white);
             difficultLabel.setColor(Color.white);
             double y = height/4.0;
-            double x = wight/15;
+            double x = wight/18;
             add(musicLabel,x,y);
             add(soundEffectsLabel, x,y+musicLabel.getHeight()*1.5);
             add(difficultLabel,x,y+musicLabel.getHeight()*3.0);
-            double xB = x+soundEffectsLabel.getWidth()+musicButton.getWidth()/2.0;
+            double xB = x+soundEffectsLabel.getWidth()+musicButton.getWidth()/1.5;
             double yB = y-musicLabel.getHeight()/4.0-musicButton.getHeight()/2.0;
             musicButton.setFont(font);
             soundEffectsButton.setFont(font);

@@ -35,10 +35,6 @@ public class Button extends GCompound {
         }
     }
 
-    public double diagonal(double a, double b){
-        return Math.sqrt(a*a+b*b);
-    }
-
     public void changeColor(boolean isMouse){
         if(isMouse){
             Color background = new Color(60, 60, 60);
@@ -47,11 +43,6 @@ public class Button extends GCompound {
             Color background = new Color(41, 41, 41);
             butt.setColor(background);
         }
-    }
-
-    public void setVisible(boolean flag){
-        butt.setVisible(flag);
-        name.setVisible(flag);
     }
 
     public void setFont(String font){

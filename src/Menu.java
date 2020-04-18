@@ -1,9 +1,11 @@
 import acm.graphics.*;
+import acm.util.ErrorException;
 import acm.util.RandomGenerator;
 import acm.util.SoundClip;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.io.*;
 
 public class Menu extends GCompound {
     //Start menu
@@ -73,6 +75,7 @@ public class Menu extends GCompound {
     }
 
     private void initAllElements() {
+        readSettings();
         musicStart();
         String mainFont = "GameOver";
 
@@ -108,16 +111,17 @@ public class Menu extends GCompound {
 
     public void initAfterGameMenu(int score, boolean win) {
         musicStart();
-        double yB = height/2.0- startButton.getHeight()/2.0;
-        double sep = (startButton.getHeight()/4.0);
-        add(restartButton,wight/2.0- restartButton.getWidth()/2.0,yB);
-        add(backButton,wight/2.0- backButton.getWidth()/2.0,yB+sep+buttonHeight);
         scoreLabel.setLabel("your score: "+ score);
         double y = height/6;
         add(gameOverLabel,wight/2.0-gameOverLabel.getWidth()/2.0,y);
         if(win) add(winLabel,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
         else add(loseLabel,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
         add(scoreLabel,wight/2.0-scoreLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/0.9);
+        double sep = (startButton.getHeight()/4.0);
+        double yB = height/2.0- startButton.getHeight()/2.0;
+        if(yB < scoreLabel.getY()) yB = scoreLabel.getY()+sep;
+        add(restartButton,wight/2.0- restartButton.getWidth()/2.0,yB);
+        add(backButton,wight/2.0- backButton.getWidth()/2.0,yB+sep+buttonHeight);
 
         tops.refreshScore(score, difficultNum);
     }
@@ -176,6 +180,7 @@ public class Menu extends GCompound {
         musicPlay = settingsM.musicPlay;
         soundEffectsPlay = settingsM.soundEffectsPlay;
         difficultNum = settingsM.difficultNum;
+        saveSettings();
     }
 
     private void drawBackGround() {
@@ -287,5 +292,45 @@ public class Menu extends GCompound {
     }
     public int getDifficult(){
         return difficultNum;
+    }
+
+    public void readSettings(){
+        try{
+            BufferedReader reader = new BufferedReader( new FileReader("settings.txt"));
+            musicPlay = readBoolean(reader.readLine());
+            soundEffectsPlay = readBoolean(reader.readLine());
+            difficultNum = readInt(reader.readLine());
+            reader.close();
+        } catch (FileNotFoundException ignored){
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void saveSettings(){
+        try {
+            PrintWriter wr = new PrintWriter(new FileWriter("settings.txt"));
+            wr.println(musicPlay?"1":"0");
+            wr.println(soundEffectsPlay?"1":"0");
+            wr.println(difficultNum);
+            wr.close();
+        }catch (IOException e){
+            throw new ErrorException(e);
+        }
+    }
+
+    private int readInt(String readLine) {
+        if(readLine != null) {
+            int num = Integer.valueOf(readLine);
+            return num;
+        }
+        return 1;
+    }
+
+    private boolean readBoolean(String line) {
+        if(line != null){
+            return line.charAt(0) != '0';
+        }
+        return true;
     }
 }
