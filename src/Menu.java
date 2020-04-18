@@ -61,7 +61,7 @@ public class Menu extends GCompound {
     private void initAllElements() {
         musicStart();
         String mainFont = "GameOver";
-        musicStart();
+        
         nameGame = new GLabel(name);
         nameGame.setFont(mainFont+"-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
