@@ -36,8 +36,8 @@ public class Menu extends GCompound {
   
     private SoundClip music;
     private SoundClip buttonSound;
-    private boolean musicPlay = false;
-    private boolean soundEffectsPlay = false;
+    private boolean musicPlay = true;
+    private boolean soundEffectsPlay = true;
     private int difficultNum = 1;
 
 
@@ -228,6 +228,7 @@ public class Menu extends GCompound {
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeAfterGameMenu();
+                if(music != null) music.stop();
                 startFlag = true;
                 buttonSoundPlay();
             } else if(lastButton == backButton){
