@@ -26,7 +26,6 @@ public class Button extends GCompound {
         double y = height/2.0+name.getHeight()/4.0;
         add(name,x,y);
     }
-
     private void checkNameSize(GLabel name,String font) {
         int size = 1;
         name.setFont(font+'-'+size);

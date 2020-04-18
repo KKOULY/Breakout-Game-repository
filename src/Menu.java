@@ -35,6 +35,7 @@ public class Menu extends GCompound {
     private double buttonHeight;
   
     private SoundClip music;
+    private SoundClip buttonSound;
     private boolean musicPlay = false;
     private boolean soundEffectsPlay = false;
     private int difficultNum = 1;
@@ -56,6 +57,18 @@ public class Menu extends GCompound {
             music = new SoundClip("menuMusic.au");
             music.setVolume(0.2);
             music.loop();
+        }
+    }
+    private void buttonSoundPlay(){
+        if (soundEffectsPlay){
+            buttonSound = new SoundClip("buttonSound.au");
+            buttonSound.setVolume(0.2);
+            if (!buttonSound.isStereo()) buttonSound.play();
+            else {
+                buttonSound.stop();
+                buttonSound.rewind();
+                buttonSound.play();
+            }
         }
     }
 
@@ -203,17 +216,20 @@ public class Menu extends GCompound {
         if(lastButton != null){
             if(lastButton == exitButton) {
                 exitFlag = true;
+                buttonSoundPlay();
             } else if(lastButton == startButton){
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
                 if(music != null) music.stop();
                 startFlag = true;
+                buttonSoundPlay();
             } else if(lastButton == restartButton){
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeAfterGameMenu();
                 startFlag = true;
+                buttonSoundPlay();
             } else if(lastButton == backButton){
                 lastButton.changeColor(false);
                 lastButton = null;
@@ -221,16 +237,19 @@ public class Menu extends GCompound {
                 removeScoreMenu();
                 removeSettingsMenu();
                 initStartMenu();
+                buttonSoundPlay();
             } else if(lastButton == scoreButton){
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
                 initScoreMenu();
+                buttonSoundPlay();
             } else if(lastButton == settingsButton){
                 settingsButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
                 initSettingsMenu();
+                buttonSoundPlay();
             }
         } else if(getElementAt(e.getX(),e.getY()) == settingsM){
             settingsM.mouseCLicked(e);

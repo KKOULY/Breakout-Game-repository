@@ -2,6 +2,7 @@ import acm.graphics.GCompound;
 import acm.graphics.GLabel;
 import acm.graphics.GObject;
 import acm.graphics.GRect;
+import acm.util.SoundClip;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -20,7 +21,7 @@ public class SettingsMenu extends GCompound {
     public boolean soundEffectsPlay;
     public int difficultNum;
     private double buttonSize;
-
+    private SoundClip buttonSound;
     public SettingsMenu(double wight, double height, boolean musicPlay, boolean soundEffectsPlay, int difficultNum){
         this.wight = wight;
         this.height = height;
@@ -30,7 +31,18 @@ public class SettingsMenu extends GCompound {
         buttonSize = wight/7;
         initAllElements();
     }
-
+    public void buttonSoundPlay(){
+        if (soundEffectsPlay){
+            buttonSound = new SoundClip("buttonSound.au");
+            buttonSound.setVolume(0.2);
+            if (!buttonSound.isStereo()) buttonSound.play();
+            else {
+                buttonSound.stop();
+                buttonSound.rewind();
+                buttonSound.play();
+            }
+        }
+    }
     private void initAllElements() {
             musicButton = new Button(musicPlay?"ON":"OFF",buttonSize,buttonSize);
             soundEffectsButton = new Button(soundEffectsPlay?"ON":"OFF",buttonSize,buttonSize);
@@ -103,6 +115,7 @@ public class SettingsMenu extends GCompound {
     public void mouseCLicked(MouseEvent e){
         if(lastButton != null){
             if(lastButton == musicButton){
+                buttonSoundPlay();
                 if(musicPlay){
                     musicButton.setLabel("OFF");
                 }else {
@@ -115,7 +128,9 @@ public class SettingsMenu extends GCompound {
                     soundEffectsButton.setLabel("OFF");
                 }else soundEffectsButton.setLabel("ON");
                 soundEffectsPlay = !soundEffectsPlay;
+                buttonSoundPlay();
             } else if(lastButton == difficultButton){
+                buttonSoundPlay();
                 difficultNum = nextDifficult();
                 difficultButton.setLabel(difficultToString());
             }

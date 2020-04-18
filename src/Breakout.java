@@ -73,6 +73,7 @@ public class Breakout extends GraphicsProgram {
 	private boolean win = false;
 	private Menu mn;
 	private SoundClip punchSound;
+	private SoundClip crashSound;
 	private boolean soundEffectsPlay;
 	private SoundClip tema;
 /* Method: run() */
@@ -109,10 +110,16 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
+	private void playCrashSound(){
+		if(soundEffectsPlay) {
+			crashSound.play();
+		}
+	}
 	private void startGame(){
 		soundEffectsPlay = mn.isSoundEffectsPlay();
 		computeCoefficient();
 		punchSound = initSound("punch.au",1);
+		crashSound = initSound("crash.au", 1);
 		tema = initSound("tema.au", 0.1);
 		if(mn.isMusicPlay()) {	tema.loop();}
         isFinishGame = false;
@@ -182,12 +189,18 @@ public class Breakout extends GraphicsProgram {
 		else if(ball.getY()>HEIGHT){
 			lives--;
 			speedLevel = 1;
-			if (lives==2)
+			if (lives==2) {
 				remove(heart3);
-			else if (lives==1)
+				playCrashSound();
+			}
+			else if (lives==1) {
 				remove(heart2);
-			else if (lives==0)
+				playCrashSound();
+			}
+			else if (lives==0) {
 				remove(heart1);
+				playCrashSound();
+			}
 
 			if(lives <= 0) {
 				isFinishGame = true;
