@@ -57,7 +57,7 @@ public class Menu extends GCompound {
 
     private void initAllElements() {
         String mainFont = "GameOver";
-     
+        musicStart();
         nameGame = new GLabel(name);
         nameGame.setFont(mainFont+"-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
@@ -86,6 +86,7 @@ public class Menu extends GCompound {
     }
 
     public void initAfterGameMenu(int score, boolean win) {
+        musicStart();
         double yB = height/2.0- startButton.getHeight()/2.0;
         double sep = (startButton.getHeight()/4.0);
         add(restartButton,wight/2.0- restartButton.getWidth()/2.0,yB);
@@ -100,7 +101,6 @@ public class Menu extends GCompound {
         tops.refreshScore(score);
     }
     private void removeAfterGameMenu(){
-        music.stop();
         remove(restartButton);
         remove(backButton);
         remove(gameOverLabel);
@@ -110,7 +110,6 @@ public class Menu extends GCompound {
     }
 
     private void initStartMenu() {
-        musicStart();
         nameGame = new GLabel(name);
         nameGame.setFont("GameOver-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
