@@ -10,7 +10,7 @@
 import acm.graphics.*;
 import acm.program.*;
 import acm.util.*;
-import javax.naming.Name;
+
 import java.awt.*;
 import java.awt.event.*;
 
@@ -65,7 +65,7 @@ public class Breakout extends GraphicsProgram {
 	private GOval ball;
 	private double vx,vy;
 	private int speedLevel;
-	private double upSpeedCoefficient = 1.2;
+	private double upSpeedCoefficient;
 	private int brickCount;
 	private int score;
 	private GLabel scoreLabel;
@@ -111,6 +111,7 @@ public class Breakout extends GraphicsProgram {
 	}
 	private void startGame(){
 		soundEffectsPlay = mn.isSoundEffectsPlay();
+		computeCoefficient();
 		punchSound = initSound("punch.au",1);
 		tema = initSound("tema.au", 0.1);
 		if(mn.isMusicPlay()) {	tema.loop();}
@@ -124,6 +125,21 @@ public class Breakout extends GraphicsProgram {
             pause(10);
         }
     }
+
+	private void computeCoefficient() {
+		int difLevel = mn.getDifficult();
+		switch (difLevel){
+			case 0:
+				upSpeedCoefficient = 1;
+				break;
+			case 1:
+				upSpeedCoefficient = 1.15;
+				break;
+			case 2:
+				upSpeedCoefficient = 1.25;
+		}
+	}
+
 	private SoundClip initSound(String soundName, double volume){
 		SoundClip sound = new SoundClip(soundName);
 		sound.setVolume(volume);

@@ -10,40 +10,65 @@ public class SettingsMenu extends GCompound {
 
     private double wight;
     private double height;
-    GLabel musicLabel = new GLabel("MUSIC:");
-    GLabel soundEffectsLabel = new GLabel("SOUND EFFECTS:");
-    Button musicButton;
-    Button soundEffectsButton;
-    public boolean musicPlay = true;
-    public boolean soundEffectsPlay = true;
+    private GLabel musicLabel = new GLabel("MUSIC:");
+    private GLabel soundEffectsLabel = new GLabel("SOUND EFFECTS:");
+    private GLabel difficultLabel = new GLabel("DIFFICULT:");
+    private Button musicButton;
+    private Button soundEffectsButton;
+    private Button difficultButton;
+    public boolean musicPlay;
+    public boolean soundEffectsPlay;
+    public int difficultNum;
     private double buttonSize;
 
-    public SettingsMenu(double wight, double height){
+    public SettingsMenu(double wight, double height, boolean musicPlay, boolean soundEffectsPlay, int difficultNum){
         this.wight = wight;
         this.height = height;
-        buttonSize = wight/6;
+        this.musicPlay = musicPlay;
+        this.soundEffectsPlay = soundEffectsPlay;
+        this.difficultNum = difficultNum;
+        buttonSize = wight/7;
         initAllElements();
     }
 
     private void initAllElements() {
-            musicButton = new Button("ON",buttonSize,buttonSize);
-            soundEffectsButton = new Button("ON",buttonSize,buttonSize);
+            musicButton = new Button(musicPlay?"ON":"OFF",buttonSize,buttonSize);
+            soundEffectsButton = new Button(soundEffectsPlay?"ON":"OFF",buttonSize,buttonSize);
+            difficultButton = new Button(difficultToString(),buttonSize*2.5,buttonSize);
             initBackground();
             String font = "GameOver-"+(int)(wight/4.5);
             musicLabel.setFont(font);
             soundEffectsLabel.setFont(font);
+            difficultLabel.setFont(font);
             musicLabel.setColor(Color.white);
             soundEffectsLabel.setColor(Color.white);
+            difficultLabel.setColor(Color.white);
             double y = height/4.0;
             double x = wight/15;
             add(musicLabel,x,y);
             add(soundEffectsLabel, x,y+musicLabel.getHeight()*1.5);
+            add(difficultLabel,x,y+musicLabel.getHeight()*3.0);
             double xB = x+soundEffectsLabel.getWidth()+musicButton.getWidth()/2.0;
             double yB = y-musicLabel.getHeight()/4.0-musicButton.getHeight()/2.0;
             musicButton.setFont(font);
             soundEffectsButton.setFont(font);
+            difficultLabel.setFont(font);
             add(musicButton,xB,yB);
             add(soundEffectsButton,xB,yB+musicLabel.getHeight()*1.5);
+            add(difficultButton,xB+buttonSize-difficultButton.getWidth(),yB+musicLabel.getHeight()*3.0);
+    }
+
+    private String difficultToString() {
+        switch (difficultNum){
+            case 0:
+                return "EASY";
+            case 1:
+                return "NORMAL";
+            case 2:
+                return "HARD";
+            default:
+                return "NOT FOUND";
+        }
     }
 
     private void initBackground() {
@@ -90,11 +115,17 @@ public class SettingsMenu extends GCompound {
                     soundEffectsButton.setLabel("OFF");
                 }else soundEffectsButton.setLabel("ON");
                 soundEffectsPlay = !soundEffectsPlay;
+            } else if(lastButton == difficultButton){
+                difficultNum = nextDifficult();
+                difficultButton.setLabel(difficultToString());
             }
         }
     }
 
-
+    private int nextDifficult() {
+        int countOfDifficulties = 3;
+        return (difficultNum+1)%countOfDifficulties;
+    }
 
 
 }

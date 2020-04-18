@@ -35,8 +35,9 @@ public class Menu extends GCompound {
     private double buttonHeight;
   
     private SoundClip music;
-    private boolean musicPlay = true;
-    private boolean soundEffectsPlay = true;
+    private boolean musicPlay = false;
+    private boolean soundEffectsPlay = false;
+    private int difficultNum = 1;
 
 
     public Menu(String name, double wight, double height){
@@ -61,7 +62,7 @@ public class Menu extends GCompound {
     private void initAllElements() {
         musicStart();
         String mainFont = "GameOver";
-        
+
         nameGame = new GLabel(name);
         nameGame.setFont(mainFont+"-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
@@ -89,7 +90,7 @@ public class Menu extends GCompound {
         topScoreLabel.setColor(Color.white);
         tops = new TopScore("topScore.txt",400,400);
 
-        settingsM = new SettingsMenu(wight,height/1.5);
+        settingsM = new SettingsMenu(wight,height/1.5, musicPlay, soundEffectsPlay, difficultNum);
     }
 
     public void initAfterGameMenu(int score, boolean win) {
@@ -161,6 +162,7 @@ public class Menu extends GCompound {
         remove(backButton);
         musicPlay = settingsM.musicPlay;
         soundEffectsPlay = settingsM.soundEffectsPlay;
+        difficultNum = settingsM.difficultNum;
     }
 
     private void drawBackGround() {
@@ -205,7 +207,7 @@ public class Menu extends GCompound {
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
-                music.stop();
+                if(music != null) music.stop();
                 startFlag = true;
             } else if(lastButton == restartButton){
                 lastButton.changeColor(false);
@@ -262,5 +264,8 @@ public class Menu extends GCompound {
     }
     public boolean isSoundEffectsPlay(){
         return soundEffectsPlay;
+    }
+    public int getDifficult(){
+        return difficultNum;
     }
 }

@@ -20,19 +20,18 @@ public class Button extends GCompound {
         add(butt);
 
         name = new GLabel(buttonName);
-        int fontSize = (int)(width/2.0);
-        checkNameSize(name,font, fontSize);
+        checkNameSize(name,font);
         name.setColor(Color.white);
         double x = width/2.0-name.getWidth()/2.0;
         double y = height/2.0+name.getHeight()/4.0;
         add(name,x,y);
     }
 
-    private void checkNameSize(GLabel name,String font, int fontSize) {
-        int size = fontSize;
+    private void checkNameSize(GLabel name,String font) {
+        int size = 1;
         name.setFont(font+'-'+size);
-        while(name.getWidth()*1.1 > width){
-            size--;
+        while(name.getWidth()*1.1 <= width && name.getHeight()*1.1 <= height){
+            size++;
             name.setFont(font+'-'+size);
         }
     }
