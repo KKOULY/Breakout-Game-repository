@@ -5,6 +5,7 @@ import com.sun.source.tree.Scope;
 
 import java.awt.*;
 import java.io.*;
+import java.util.StringTokenizer;
 
 public class TopScore extends GCompound{
 
@@ -31,11 +32,12 @@ public class TopScore extends GCompound{
         double labelHeight = (height/9.0)*0.95;
         double sep = (height-(labelHeight*10.0))/10.0;
         String font = findFont("GameOver", labelHeight);
+        double x = wight/4.0;
         for(int i = 0; i< 9;i++){
             Score temp = nextScore(i);
             temp.setFont(font);
             temp.setColor(Color.white);
-            add(temp,wight/2.0-temp.getWidth()/2.0,labelHeight*(i+1)+sep*i);
+            add(temp,x,labelHeight*(i+1)+sep*i);
         }
     }
 
@@ -79,15 +81,15 @@ public class TopScore extends GCompound{
     private void initScores(String filePath) {
         try{
             BufferedReader reader = new BufferedReader( new FileReader(filePath));
-            s1.setNum(writeLine(reader));
-            s2.setNum(writeLine(reader));
-            s3.setNum(writeLine(reader));
-            s4.setNum(writeLine(reader));
-            s5.setNum(writeLine(reader));
-            s6.setNum(writeLine(reader));
-            s7.setNum(writeLine(reader));
-            s8.setNum(writeLine(reader));
-            s9.setNum(writeLine(reader));
+            s1.change(writeLine(reader));
+            s2.change(writeLine(reader));
+            s3.change(writeLine(reader));
+            s4.change(writeLine(reader));
+            s5.change(writeLine(reader));
+            s6.change(writeLine(reader));
+            s7.change(writeLine(reader));
+            s8.change(writeLine(reader));
+            s9.change(writeLine(reader));
             reader.close();
 
         } catch (FileNotFoundException ignored){
@@ -96,20 +98,34 @@ public class TopScore extends GCompound{
         }
     }
 
-    public void refreshScore(int score){
-        int temp = score;
+    public void refreshScore(int score, int difficulty){
+        int tempScore = score;
+        int tempDifficult = difficulty;
         boolean refreshFlag = false;
         for(int i = 0;i < s1.getCount()-1;i++){
             Score sc = nextScore(i);
-            if(temp > sc.getNum()){
-                int del = sc.getNum();
-                sc.setNum(temp);
-                temp = del;
+            if(tempScore > sc.getNum()){
+                int swapScore = sc.getNum();
+                int swapDifficult = sc.getDifficultNum();
+                sc.setNum(tempScore);
+                sc.setDifficulty(tempDifficult);
+                tempScore = swapScore;
+                tempDifficult = swapDifficult;
                 refreshFlag = true;
             }
         }
         if(refreshFlag){
             saveScores();
+            redrawScores();
+        }
+    }
+
+    private void redrawScores() {
+        double x = wight/4.0;
+        for(int i = 0; i< 9;i++){
+            Score temp = nextScore(i);
+            double y = temp.getY();
+            temp.setLocation(x,y);
         }
     }
 
@@ -117,7 +133,8 @@ public class TopScore extends GCompound{
         try {
             PrintWriter wr = new PrintWriter(new FileWriter("topScore.txt"));
             for(int i = 0;i < s1.getCount()-1;i++){
-                wr.println(nextScore(i).getNum());
+                Score temp = nextScore(i);
+                wr.println(temp.getNum()+" "+temp.getDifficultNum());
             }
             wr.close();
         }catch (IOException e){

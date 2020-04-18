@@ -119,7 +119,7 @@ public class Menu extends GCompound {
         else add(loseLabel,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
         add(scoreLabel,wight/2.0-scoreLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/0.9);
 
-        tops.refreshScore(score);
+        tops.refreshScore(score, difficultNum);
     }
     private void removeAfterGameMenu(){
         remove(restartButton);
