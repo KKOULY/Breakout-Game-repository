@@ -33,7 +33,7 @@ public class Score extends GCompound {
     }
 
     public void setNum(String n){
-        scoreNum = Integer.parseInt(n);
+        if(n.length() > 0) scoreNum = Integer.valueOf(n);
         scoreNumString = n;
         while (scoreNumString.length() < 3) scoreNumString = "0"+scoreNumString;
         main.setLabel(toString());
