@@ -73,6 +73,7 @@ public class Breakout extends GraphicsProgram {
 	private boolean win = false;
 	private Menu mn;
 	private SoundClip punchSound;
+	private boolean soundEffectsPlay;
 	private SoundClip tema;
 /* Method: run() */
 /** Runs the Breakout program. */
@@ -99,17 +100,20 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 	private void playPunchSound(){
-		if (!punchSound.isStereo()) punchSound.play();
-		else{
-			punchSound.stop();
-			punchSound.rewind();
-			punchSound.play();
+		if(soundEffectsPlay) {
+			if (!punchSound.isStereo()) punchSound.play();
+			else {
+				punchSound.stop();
+				punchSound.rewind();
+				punchSound.play();
+			}
 		}
 	}
 	private void startGame(){
+		soundEffectsPlay = mn.isSoundEffectsPlay();
 		punchSound = initSound("punch.au",1);
 		tema = initSound("tema.au", 0.1);
-		tema.loop();
+		if(mn.isMusicPlay()) {	tema.loop();}
         isFinishGame = false;
         win = false;
         initAllElements();

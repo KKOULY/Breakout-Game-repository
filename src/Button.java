@@ -9,6 +9,7 @@ public class Button extends GCompound {
     GLabel name;
     private double width,height;
     private boolean visible = true;
+    String font = "GameOver";
     public Button(String buttonName, double width, double height){
         this.width = width;
         this.height = height;
@@ -20,7 +21,7 @@ public class Button extends GCompound {
 
         name = new GLabel(buttonName);
         int fontSize = (int)(width/2.0);
-        checkNameSize(name,"GameOver", fontSize);
+        checkNameSize(name,font, fontSize);
         name.setColor(Color.white);
         double x = width/2.0-name.getWidth()/2.0;
         double y = height/2.0+name.getHeight()/4.0;
@@ -53,6 +54,16 @@ public class Button extends GCompound {
     public void setVisible(boolean flag){
         butt.setVisible(flag);
         name.setVisible(flag);
+    }
+
+    public void setFont(String font){
+        name.setFont(font);
+        name.setLocation(width/2.0-name.getWidth()/2.0,height/2.0+name.getHeight()/4.0);
+    }
+
+    public void setLabel(String label){
+        name.setLabel(label);
+        name.setLocation(width/2.0-name.getWidth()/2.0,height/2.0+name.getHeight()/4.0);
     }
 
 

@@ -6,23 +6,24 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 
 public class Menu extends GCompound {
+    //Start menu
+    private GLabel nameGame;
     private Button startButton;
     private Button scoreButton;
+    private Button settingsButton;
     private Button exitButton;
-
+    //Game Over menu
     private Button restartButton;
     private Button backButton;
-
+    private GLabel gameOverLabel = new GLabel("GAME OVER");
+    private GLabel winLabel;
+    private GLabel loseLabel;
+    private GLabel scoreLabel;
+    //Top score menu
     private TopScore tops;
     private GLabel topScoreLabel;
 
-
-    private GLabel nameGame;
-
-    private GLabel gameOverLabel = new GLabel("GAME OVER");
-    private GLabel winLabel;
-    private GLabel loseLabe;
-    private GLabel scoreLabel;
+    private SettingsMenu settingsM;
 
     private boolean exitFlag = false;
     private boolean startFlag = false;
@@ -30,12 +31,12 @@ public class Menu extends GCompound {
     private double wight;
     private double height;
     private String name;
-
-
     private double buttonWight;
     private double buttonHeight;
   
     private SoundClip music;
+    private boolean musicPlay = true;
+    private boolean soundEffectsPlay = true;
 
 
     public Menu(String name, double wight, double height){
@@ -50,12 +51,15 @@ public class Menu extends GCompound {
     }
   
  private void musicStart(){
-        music = new SoundClip("menuMusic.au");
-        music.setVolume(0.2);
-        music.loop();
+        if(musicPlay) {
+            music = new SoundClip("menuMusic.au");
+            music.setVolume(0.2);
+            music.loop();
+        }
     }
 
     private void initAllElements() {
+        musicStart();
         String mainFont = "GameOver";
      
         nameGame = new GLabel(name);
@@ -63,29 +67,33 @@ public class Menu extends GCompound {
         nameGame.setColor(Color.red);
         startButton = new Button("START",buttonWight,buttonHeight);
         scoreButton = new Button("TOP SCORE",buttonWight,buttonHeight);
+        settingsButton = new Button("SETTINGS",buttonWight,buttonHeight);
         exitButton = new Button("EXIT",buttonWight,buttonHeight);
 
         restartButton = new Button("RESTART",buttonWight,buttonHeight);
         backButton = new Button("BACK",buttonWight,buttonHeight);
         winLabel = new GLabel("YOU WIN");
-        loseLabe = new GLabel("YOU LOSE");
+        loseLabel = new GLabel("YOU LOSE");
         scoreLabel = new GLabel("your score: 0");
         gameOverLabel.setFont(mainFont+"-"+(int)(wight/2.5));
         winLabel.setFont(mainFont+"-"+(int)(wight/2.5));
-        loseLabe.setFont(mainFont+"-"+(int)(wight/2.5));
+        loseLabel.setFont(mainFont+"-"+(int)(wight/2.5));
         scoreLabel.setFont(mainFont+"-"+(int)(wight/5));
         gameOverLabel.setColor(Color.white);
         winLabel.setColor(Color.white);
-        loseLabe.setColor(Color.white);
+        loseLabel.setColor(Color.white);
         scoreLabel.setColor(Color.white);
 
         topScoreLabel = new GLabel("TOP SCORE");
         topScoreLabel.setFont(mainFont+"-"+(int)(wight/3.0));
         topScoreLabel.setColor(Color.white);
         tops = new TopScore("topScore.txt",400,400);
+
+        settingsM = new SettingsMenu(wight,height/1.5);
     }
 
     public void initAfterGameMenu(int score, boolean win) {
+        musicStart();
         double yB = height/2.0- startButton.getHeight()/2.0;
         double sep = (startButton.getHeight()/4.0);
         add(restartButton,wight/2.0- restartButton.getWidth()/2.0,yB);
@@ -94,38 +102,38 @@ public class Menu extends GCompound {
         double y = height/6;
         add(gameOverLabel,wight/2.0-gameOverLabel.getWidth()/2.0,y);
         if(win) add(winLabel,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
-        else add(loseLabe,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
+        else add(loseLabel,wight/2.0-winLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/1.5);
         add(scoreLabel,wight/2.0-scoreLabel.getWidth()/2.0,y+gameOverLabel.getHeight()/0.9);
 
         tops.refreshScore(score);
     }
     private void removeAfterGameMenu(){
-        music.stop();
         remove(restartButton);
         remove(backButton);
         remove(gameOverLabel);
         remove(winLabel);
-        remove(loseLabe);
+        remove(loseLabel);
         remove(scoreLabel);
     }
 
     private void initStartMenu() {
-        musicStart();
         nameGame = new GLabel(name);
         nameGame.setFont("GameOver-"+(int)(wight/3.0));
         nameGame.setColor(Color.red);
 
         add(nameGame,wight/2.0-nameGame.getWidth()/2.0,height/5.0+nameGame.getHeight()/4.0);
-        double y = height/2.0- startButton.getHeight()/2.0;
+        double y = height/2.5- startButton.getHeight()/2.0;
         double sep = (startButton.getHeight()/4.0);
         add(startButton,wight/2.0- startButton.getWidth()/2.0,y);
         add(scoreButton,wight/2.0-scoreButton.getWidth()/2.0,y+sep+buttonHeight);
-        add(exitButton,wight/2.0- startButton.getWidth()/2.0,y+(2*sep)+(2*buttonHeight));
+        add(settingsButton,wight/2.0- startButton.getWidth()/2.0,y+(2*sep)+(2*buttonHeight));
+        add(exitButton,wight/2.0- startButton.getWidth()/2.0,y+(3*sep)+(3*buttonHeight));
     }
 
     private void removeStartMenu(){
         remove(startButton);
         remove(scoreButton);
+        remove(settingsButton);
         remove(exitButton);
         remove(nameGame);
     }
@@ -141,6 +149,18 @@ public class Menu extends GCompound {
         remove(topScoreLabel);
         remove(tops);
         remove(backButton);
+    }
+
+    private void initSettingsMenu(){
+        add(settingsM,0,0);
+        add(backButton,wight/2.0- backButton.getWidth()/2.0,height/2.0+height/4.0 + backButton.getHeight()/2.0);
+    }
+
+    private void removeSettingsMenu(){
+        remove(settingsM);
+        remove(backButton);
+        musicPlay = settingsM.musicPlay;
+        soundEffectsPlay = settingsM.soundEffectsPlay;
     }
 
     private void drawBackGround() {
@@ -160,6 +180,8 @@ public class Menu extends GCompound {
                 if (obj.getClass() == startButton.getClass()) {
                     lastButton = (Button) obj;
                     lastButton.changeColor(true);
+                } else if(obj == settingsM){
+                    settingsM.mouseMoved(e);
                 }
             } else {
                 if (obj != lastButton) {
@@ -195,12 +217,25 @@ public class Menu extends GCompound {
                 lastButton = null;
                 removeAfterGameMenu();
                 removeScoreMenu();
+                removeSettingsMenu();
                 initStartMenu();
             } else if(lastButton == scoreButton){
                 lastButton.changeColor(false);
                 lastButton = null;
                 removeStartMenu();
                 initScoreMenu();
+            } else if(lastButton == settingsButton){
+                settingsButton.changeColor(false);
+                lastButton = null;
+                removeStartMenu();
+                initSettingsMenu();
+            }
+        } else if(getElementAt(e.getX(),e.getY()) == settingsM){
+            settingsM.mouseCLicked(e);
+            if(musicPlay != settingsM.musicPlay){
+                musicPlay = settingsM.musicPlay;
+                if(musicPlay) musicStart();
+                else music.stop();
             }
         }
     }
@@ -220,5 +255,12 @@ public class Menu extends GCompound {
 
     public void changeStartFlag(boolean flag){
         startFlag = flag;
+    }
+
+    public boolean isMusicPlay(){
+        return musicPlay;
+    }
+    public boolean isSoundEffectsPlay(){
+        return soundEffectsPlay;
     }
 }
