@@ -76,6 +76,7 @@ public class Breakout extends GraphicsProgram {
 	private SoundClip crashSound;
 	private boolean soundEffectsPlay;
 	private SoundClip tema;
+	private boolean touchBrick = false;
 /* Method: run() */
 /** Runs the Breakout program. */
 	public void run() {
@@ -176,16 +177,18 @@ public class Breakout extends GraphicsProgram {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
 			removeDifference();
 			playPunchSound();
+			touchBrick = false;
 			vx *= -1;
 		}
 		else if(ball.getY() < 0) {
 			removeDifference();
 			playPunchSound();
+			touchBrick = false;
 			upSpeed(4, upSpeedCoefficient);
 			vy *= -1;
 		}
 		else if(findObjectForward()) {
-			playPunchSound(); 
+			playPunchSound();
 			vy *= -1;
 		}
 		else if(ball.getY()>HEIGHT){
@@ -257,13 +260,15 @@ public class Breakout extends GraphicsProgram {
 					double dif = (ball.getY()+ball.getHeight())-paddle.getY();
 					ball.move(0,-dif);
 				}
+				touchBrick = false;
 				return true;
 			}
-			else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH){
+			else if(obj.getHeight() == BRICK_HEIGHT && obj.getWidth() == BRICK_WIDTH && !touchBrick){
 				remove(obj);
 				brickCount--;
 				updateScore(obj.getColor());
 				updateSpeed(obj.getColor());
+				touchBrick = true;
 				return true;
 			} else return false;
 		}
@@ -302,6 +307,7 @@ public class Breakout extends GraphicsProgram {
         ball = new GOval(BALL_RADIUS*2,BALL_RADIUS*2);
         double startX = WIDTH/2.0-ball.getWidth()/2.0;
         double startY = HEIGHT/2.0-ball.getHeight()/2.0;
+        startY = 100;
         ball.setFilled(true);
         Color ballCol = new Color(203,41,244);
         ball.setColor(ballCol);
