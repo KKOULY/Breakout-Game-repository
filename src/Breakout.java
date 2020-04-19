@@ -174,10 +174,12 @@ public class Breakout extends GraphicsProgram {
 
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
+			removeDifference();
 			playPunchSound();
 			vx *= -1;
 		}
 		else if(ball.getY() < 0) {
+			removeDifference();
 			playPunchSound();
 			upSpeed(4, upSpeedCoefficient);
 			vy *= -1;
@@ -214,6 +216,22 @@ public class Breakout extends GraphicsProgram {
 		if(brickCount <= 0) {
 			isFinishGame = true;
 			win=true;
+		}
+	}
+
+	private void removeDifference() {
+		double dif = 0;
+		if(ball.getY() < 0){
+			dif = -ball.getY();
+			ball.move(0,dif);
+		}
+		if(ball.getX() < 0){
+			dif = -ball.getX();
+			ball.move(dif,0);
+		}
+		if(ball.getX()+ball.getWidth() > WIDTH){
+			dif = WIDTH-ball.getX()-ball.getWidth();
+			ball.move(dif,0);
 		}
 	}
 
