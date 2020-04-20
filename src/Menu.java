@@ -42,7 +42,12 @@ public class Menu extends GCompound {
     private boolean soundEffectsPlay = true;
     private int difficultNum = 1;
 
-
+    /**
+     * Головний метод цього класу
+     * @param name
+     * @param wight
+     * @param height
+     */
     public Menu(String name, double wight, double height){
         this.wight = wight;
         this.height = height;
@@ -53,7 +58,10 @@ public class Menu extends GCompound {
         initAllElements();
         initStartMenu();
     }
-  
+
+    /**
+     * Запуск фонової музики в меню
+     */
  private void musicStart(){
         if(musicPlay) {
             music = new SoundClip("menuMusic.au");
@@ -61,6 +69,10 @@ public class Menu extends GCompound {
             music.loop();
         }
     }
+
+    /**
+     * Звук, коли натискаєш на кнопку.
+     */
     private void buttonSoundPlay(){
         if (soundEffectsPlay){
             buttonSound = new SoundClip("buttonSound.au");
@@ -74,6 +86,9 @@ public class Menu extends GCompound {
         }
     }
 
+    /**
+     * Ініціалізує всі об'єкти в меню
+     */
     private void initAllElements() {
         readSettings();
         musicStart();
@@ -110,6 +125,11 @@ public class Menu extends GCompound {
         settingsM = new SettingsMenu(wight,height/1.5, musicPlay, soundEffectsPlay, difficultNum);
     }
 
+    /**
+     * Ініціалізує об'єкти в меню закінчення гри.
+     * @param score Результат набраний протягом гри
+     * @param win Перевіряє чи переміг гравець
+     */
     public void initAfterGameMenu(int score, boolean win) {
         musicStart();
         scoreLabel.setLabel("your score: "+ score);
@@ -126,6 +146,10 @@ public class Menu extends GCompound {
 
         tops.refreshScore(score, difficultNum);
     }
+
+    /**
+     * Прибирає всі об'єкти в меню закінчення гри
+     */
     private void removeAfterGameMenu(){
         remove(restartButton);
         remove(backButton);
@@ -135,6 +159,9 @@ public class Menu extends GCompound {
         remove(scoreLabel);
     }
 
+    /**
+     * Ініціалізує об'єкти в стартовому меню
+     */
     private void initStartMenu() {
         nameGame = new GLabel(name);
         nameGame.setFont("GameOver-"+(int)(wight/3.0));
@@ -149,6 +176,9 @@ public class Menu extends GCompound {
         add(exitButton,wight/2.0- startButton.getWidth()/2.0,y+(3*sep)+(3*buttonHeight));
     }
 
+    /**
+     * Видаляє об'єкти стартового меню
+     */
     private void removeStartMenu(){
         remove(startButton);
         remove(scoreButton);
@@ -157,24 +187,35 @@ public class Menu extends GCompound {
         remove(nameGame);
     }
 
+    /**
+     * Ініціалізує меню результатів
+     */
     private void initScoreMenu(){
         add(topScoreLabel,wight/2.0-topScoreLabel.getWidth()/2.0,height/10);
         add(tops,0,height/8);
         add(backButton,wight/2.0- backButton.getWidth()/2.0,height/2.0+height/4.0 + backButton.getHeight()/2.0);
     }
 
-
+    /**
+     * Видаляє об'єкти меню результатів
+     */
     private void removeScoreMenu(){
         remove(topScoreLabel);
         remove(tops);
         remove(backButton);
     }
 
+    /**
+     * Ініціалізує меню налаштувань
+     */
     private void initSettingsMenu(){
         add(settingsM,0,0);
         add(backButton,wight/2.0- backButton.getWidth()/2.0,height/2.0+height/4.0 + backButton.getHeight()/2.0);
     }
 
+    /**
+     * Видаляє об'єкти меню налаштувань
+     */
     private void removeSettingsMenu(){
         remove(settingsM);
         remove(backButton);
@@ -184,6 +225,9 @@ public class Menu extends GCompound {
         saveSettings();
     }
 
+    /**
+     * Малює фон
+     */
     private void drawBackGround() {
         GRect rect = new GRect(wight,height);
         rect.setFilled(true);
@@ -194,6 +238,11 @@ public class Menu extends GCompound {
 
     GObject obj;
     Button lastButton;
+
+    /**
+     * Перевіряє чи наведений зараз курсор на кнопку та змінює колір кнопки в залежності від цього.
+     * @param e MouseEvent
+     */
     public void mouseMoved(MouseEvent e){
         obj = getElementAt(e.getX(),e.getY());
         if(obj != null) {
@@ -218,6 +267,10 @@ public class Menu extends GCompound {
     }
     RandomGenerator rnd = RandomGenerator.getInstance();
 
+    /**
+     * Перевіряє на яку кнопку натиснув користувач
+     * @param e MouseEvent
+     */
     public void mouseClicked(MouseEvent e) {
         if(lastButton != null){
             if(lastButton == exitButton) {
@@ -295,6 +348,9 @@ public class Menu extends GCompound {
         return difficultNum;
     }
 
+    /**
+     * Читає з фойлу налаштування, які були при минулому запуску гри.
+     */
     public void readSettings(){
         try{
             BufferedReader reader = new BufferedReader( new FileReader("settings.txt"));
@@ -308,6 +364,9 @@ public class Menu extends GCompound {
         }
     }
 
+    /**
+     * Запам'ятовує налаштування користувача
+     */
     public void saveSettings(){
         try {
             PrintWriter wr = new PrintWriter(new FileWriter("settings.txt"));
