@@ -17,7 +17,7 @@ public class Menu extends GCompound {
     //Game Over menu
     private Button restartButton;
     private Button backButton;
-    private GLabel gameOverLabel = new GLabel("GAME OVER");
+    private GLabel gameOverLabel;
     private GLabel winLabel;
     private GLabel loseLabel;
     private GLabel scoreLabel;
@@ -92,6 +92,7 @@ public class Menu extends GCompound {
         winLabel = new GLabel("YOU WIN");
         loseLabel = new GLabel("YOU LOSE");
         scoreLabel = new GLabel("your score: 0");
+        gameOverLabel = new GLabel("GAME OVER");
         gameOverLabel.setFont(mainFont+"-"+(int)(wight/2.5));
         winLabel.setFont(mainFont+"-"+(int)(wight/2.5));
         loseLabel.setFont(mainFont+"-"+(int)(wight/2.5));
