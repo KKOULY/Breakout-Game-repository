@@ -170,7 +170,7 @@ public class Breakout extends GraphicsProgram {
 	 * ініціалізує звук
 	 * @param soundName назва звукового файла
 	 * @param volume гучність
-	 * @return
+	 * @return SoundClip
 	 */
 	private SoundClip initSound(String soundName, double volume){
 		SoundClip sound = new SoundClip(soundName);
