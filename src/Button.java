@@ -4,6 +4,9 @@ import acm.graphics.GRoundRect;
 
 import java.awt.*;
 
+/**
+ * Конструктор Button
+ */
 public class Button extends GCompound {
     GRoundRect butt;
     GLabel name;
@@ -26,6 +29,12 @@ public class Button extends GCompound {
         double y = height/2.0+name.getHeight()/4.0;
         add(name,x,y);
     }
+
+    /**
+     * знаходить найбільш кращий шрифт
+     * @param name GLabel
+     * @param font назва шрифта
+     */
     private void checkNameSize(GLabel name,String font) {
         int size = 1;
         name.setFont(font+'-'+size);
@@ -35,6 +44,10 @@ public class Button extends GCompound {
         }
     }
 
+    /**
+     * змінює Колір кнопки
+     * @param isMouse миша наведена в boolean
+     */
     public void changeColor(boolean isMouse){
         if(isMouse){
             Color background = new Color(60, 60, 60);
@@ -45,11 +58,19 @@ public class Button extends GCompound {
         }
     }
 
+    /**
+     * змінює шрифт
+     * @param font шрифт
+     */
     public void setFont(String font){
         name.setFont(font);
         name.setLocation(width/2.0-name.getWidth()/2.0,height/2.0+name.getHeight()/4.0);
     }
 
+    /**
+     * змінює label
+     * @param label GLabel
+     */
     public void setLabel(String label){
         name.setLabel(label);
         name.setLocation(width/2.0-name.getWidth()/2.0,height/2.0+name.getHeight()/4.0);

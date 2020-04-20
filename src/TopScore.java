@@ -21,6 +21,13 @@ public class TopScore extends GCompound{
 
     private double wight;
     private double height;
+
+    /**
+     * Конструктор TopScore
+     * @param filePath назва файлу з якого зчитується результати
+     * @param wight ширина
+     * @param height висота
+     */
     public TopScore(String filePath, double wight, double height){
         this.wight = wight;
         this.height = height;
@@ -28,6 +35,9 @@ public class TopScore extends GCompound{
         drawScores();
     }
 
+    /**
+     * Малює результати
+     */
     private void drawScores() {
         double labelHeight = (height/9.0)*0.95;
         double sep = (height-(labelHeight*10.0))/10.0;
@@ -41,6 +51,11 @@ public class TopScore extends GCompound{
         }
     }
 
+    /**
+     * Повертає обєкт Score за номером
+     * @param i номер
+     * @return Score
+     */
     private Score nextScore(int i) {
         switch (i){
             case 0:
@@ -65,6 +80,12 @@ public class TopScore extends GCompound{
         return null;
     }
 
+    /**
+     * Знаходить найбільш кращий шрифт
+     * @param font назва шрифту
+     * @param maxHeight максимальна висота
+     * @return шрифт
+     */
     private String findFont(String font, double maxHeight) {
         int fontSize = 1;
         GLabel temp = new GLabel("temp");
@@ -78,6 +99,10 @@ public class TopScore extends GCompound{
         return returnFont;
     }
 
+    /**
+     * Ініціалізує Score обєкти
+     * @param filePath назва файлу з якого зчитаються результати
+     */
     private void initScores(String filePath) {
         try{
             BufferedReader reader = new BufferedReader( new FileReader(filePath));
@@ -98,6 +123,11 @@ public class TopScore extends GCompound{
         }
     }
 
+    /**
+     * Оновлює результати
+     * @param score рахунок
+     * @param difficulty складність
+     */
     public void refreshScore(int score, int difficulty){
         int tempScore = score;
         int tempDifficult = difficulty;
@@ -120,6 +150,9 @@ public class TopScore extends GCompound{
         }
     }
 
+    /**
+     * Перемальовує результати
+     */
     private void redrawScores() {
         double x = wight/4.0;
         for(int i = 0; i< 9;i++){
@@ -129,6 +162,9 @@ public class TopScore extends GCompound{
         }
     }
 
+    /**
+     * Зберігає результати
+     */
     private void saveScores() {
         try {
             PrintWriter wr = new PrintWriter(new FileWriter("topScore.txt"));
@@ -142,6 +178,11 @@ public class TopScore extends GCompound{
         }
     }
 
+    /**
+     * Зчитує стрічку і повертає її
+     * @param reader рідер
+     * @return стрічку
+     */
     private String writeLine(BufferedReader reader) {
         try {
             String str = reader.readLine();
