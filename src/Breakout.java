@@ -485,7 +485,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * ініціалізує 
+	 * ініціалізує GLabel рахунку
 	 */
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 5, 10);
@@ -497,6 +497,10 @@ public class Breakout extends GraphicsProgram {
 		add(scoreLabel);
 	}
 
+	/**
+	 * оновлює рахунок дивлячись на колір цеглини
+	 * @param brickColor колір збитої цеглини
+	 */
 	private void updateScore(Color brickColor){
 	if(brickColor == Color.red)
 		score += 5;
@@ -511,6 +515,9 @@ public class Breakout extends GraphicsProgram {
 	scoreLabel.setLabel(""+score);
 	}
 
+	/**
+	 * анімація таймеру при початку гри
+	 */
 	private void timer(){
 		int time = 3;
 		GLabel timerLabel = new GLabel(""+time);
