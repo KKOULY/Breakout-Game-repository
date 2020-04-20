@@ -14,7 +14,7 @@ public class Score extends GCompound {
     private GLabel main;
 
     /**
-     * РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ СЂР°С…СѓРЅРєР°
+     * конструктор рахунка
      */
     public Score(){
         num = count;
@@ -24,7 +24,7 @@ public class Score extends GCompound {
     }
 
     /**
-     * РѕР±СЂР°С…РѕРІСѓС” Р·РЅР°С‡РµРЅРЅСЏ СЂР°С…СѓРЅРєР° С– РІРёРІРѕРґРёС‚СЊ РІ String
+     * обраховує значення рахунка і виводить в String
      * @return score to String
      */
     public String toString(){
@@ -35,15 +35,15 @@ public class Score extends GCompound {
     }
 
     /**
-     * @return РїРѕРІРµСЂС‚Р°С” СЂР°С…СѓРЅРѕРє РІ int
+     * @return повертає рахунок в int
      */
     public int getNum(){
         return scoreNum;
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЂР°С…СѓРЅРѕРє
-     * @param n РєС–Р»СЊРєС–СЃС‚СЊ СЂР°С…СѓРЅРєСѓ РІ int
+     * змінює рахунок
+     * @param n кількість рахунку в int
      */
     public void setNum(int n){
         scoreNum = n;
@@ -54,8 +54,8 @@ public class Score extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЂР°С…СѓРЅРѕРє
-     * @param n РєС–Р»СЊРєС–СЃС‚СЊ СЂР°С…СѓРЅРєСѓ РІ String
+     * змінює рахунок
+     * @param n кількість рахунку в String
      */
     public void setNum(String n){
         if(n.length() > 0) scoreNum = Integer.valueOf(n);
@@ -66,8 +66,8 @@ public class Score extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЃРєР»Р°РґРЅС–СЃС‚СЊ
-     * @param difficult СЃРєР»Р°РґРЅС–СЃС‚СЊ РІ int
+     * змінює складність
+     * @param difficult складність в int
      */
     public void setDifficulty(int difficult){
         difficultNum = difficult;
@@ -75,8 +75,8 @@ public class Score extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЃРєР»Р°РґРЅС–СЃС‚СЊ
-     * @param difficult СЃРєР»Р°РґРЅС–СЃС‚СЊ РІ String
+     * змінює складність
+     * @param difficult складність в String
      */
     public void setDifficulty(String difficult){
         if(difficult.length() > 0) difficultNum = Integer.valueOf(difficult);
@@ -84,38 +84,38 @@ public class Score extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” РєРѕР»С–СЂ
-     * @param col РєРѕР»С–СЂ
+     * змінює колір
+     * @param col колір
      */
     public void setColor(Color col){
         main.setColor(col);
     }
 
     /**
-     * Р·РјС–РЅСЋС” С€СЂРёС„С‚
-     * @param s С€СЂРёС„С‚
+     * змінює шрифт
+     * @param s шрифт
      */
     public void setFont(String s){
         main.setFont(s);
     }
 
     /**
-     * @return РїРѕРІРµСЂС‚Р°С” РєС–Р»СЊРєС–СЃС‚СЊ СЂР°С…СѓРЅРєС–РІ РІСЃСЊРѕРіРѕ
+     * @return повертає кількість рахунків всього
      */
     public int getCount(){
         return count;
     }
 
     /**
-     * @return РїРѕРІРµСЂС‚Р°С” СЃРєР»Р°РґРЅС–СЃС‚СЊ РІ int
+     * @return повертає складність в int
      */
     public int getDifficultNum(){
         return difficultNum;
     }
 
     /**
-     * РїРѕРІРµСЂС‚Р°С” СЃРєР»Р°РґРЅС–СЃС‚СЊ РіСЂРё РІ String
-     * @return СЃРєР»Р°РґРЅС–СЃС‚СЊ in String
+     * повертає складність гри в String
+     * @return складність in String
      */
     private String difficultToString() {
         switch (difficultNum){
@@ -131,8 +131,8 @@ public class Score extends GCompound {
     }
 
     /**
-     * Р·С‡РёС‚СѓС” Р·С– СЃС‚СЂРѕРєРё РЅРѕРјРµСЂ СЂР°С…СѓРЅРѕРє С– СЃРєР»Р°РґРЅС–СЃС‚СЊ
-     * @param line СЃС‚СЂС–С‡РєР°
+     * зчитує зі строки номер рахунок і складність
+     * @param line стрічка
      */
     public void change(String line) {
         setNum(wordIndex(line,0));
@@ -140,10 +140,10 @@ public class Score extends GCompound {
     }
 
     /**
-     * РїРѕРІРµСЂС‚Р°С” СЃР»РѕРІРѕ Р·Р° Р№РѕРіРѕ С–РЅРґРµРєСЃРѕРј РІ СЃС‚СЂС–С‡С†С–
-     * @param str СЃС‚СЂС–С‡РєР°
-     * @param i С–РЅРґРµРєСЃ
-     * @return СЃР»РѕРІРѕ
+     * повертає слово за його індексом в стрічці
+     * @param str стрічка
+     * @param i індекс
+     * @return слово
      */
     private String wordIndex(String str, int i) {
         StringTokenizer token = new StringTokenizer(str);
