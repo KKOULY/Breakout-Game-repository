@@ -88,6 +88,9 @@ public class Breakout extends GraphicsProgram {
         Game();
 	}
 
+	/**
+	 * головний метод гри
+	 */
 	private void Game() {
         add(mn);
 		while (true) {
@@ -101,6 +104,10 @@ public class Breakout extends GraphicsProgram {
             }
 		}
 	}
+
+	/**
+	 * програє звук удара
+	 */
 	private void playPunchSound(){
 		if(soundEffectsPlay) {
 			if (!punchSound.isStereo()) punchSound.play();
@@ -111,11 +118,19 @@ public class Breakout extends GraphicsProgram {
 			}
 		}
 	}
+
+	/**
+	 * програє звук віднімання життя
+	 */
 	private void playCrashSound(){
 		if(soundEffectsPlay) {
 			crashSound.play();
 		}
 	}
+
+	/**
+	 * ініціалізує всі звуки, таймер, цикл гри
+	 */
 	private void startGame(){
 		soundEffectsPlay = mn.isSoundEffectsPlay();
 		computeCoefficient();
@@ -134,6 +149,9 @@ public class Breakout extends GraphicsProgram {
         }
     }
 
+	/**
+	 * розраховує коєфіцієнт збільшення швидкості
+	 */
 	private void computeCoefficient() {
 		int difLevel = mn.getDifficult();
 		switch (difLevel){
@@ -148,11 +166,21 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * ініціалізує звук
+	 * @param soundName назва звукового файла
+	 * @param volume гучність
+	 * @return
+	 */
 	private SoundClip initSound(String soundName, double volume){
 		SoundClip sound = new SoundClip(soundName);
 		sound.setVolume(volume);
 		return sound;
 	}
+
+	/**
+	 * ініціалізує всі елементи
+	 */
 	private void initAllElements() {
 		lives = 3;
 		score = 0;
@@ -165,6 +193,9 @@ public class Breakout extends GraphicsProgram {
 		initBall();
 	}
 
+	/**
+	 * метод який прибирає всі елементи і запускає вікно поразки/перемоги
+	 */
 	private void finishGame(){
 		tema.stop();
         this.removeAll();
@@ -173,6 +204,9 @@ public class Breakout extends GraphicsProgram {
         add(mn);
 	}
 
+	/**
+	 * перевіряє мячик на колізію зі стінами, ракеткою, цеглинами
+	 */
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
 			removeDifference();
@@ -222,6 +256,9 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * прибирає різніцю заходження мяча за поля гри
+	 */
 	private void removeDifference() {
 		double dif = 0;
 		if(ball.getY() < 0){
@@ -238,6 +275,10 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * знаходить обєкт попереду
+	 * @return повертає true якщо обєкт попереду цеглина або ракетка
+	 */
 	private boolean findObjectForward() {
 		GObject obj;
 		obj = getElementAt(ball.getX()+ball.getWidth()/2.0,ball.getY());
@@ -253,6 +294,11 @@ public class Breakout extends GraphicsProgram {
 		return false;
 	}
 
+	/**
+	 * перевіряє чи є цей обєкт цеглиною або ракеткою
+	 * @param obj обєкт, що перевіряється
+	 * @return повертає true, якщо обєкт цеглина або ракетка
+	 */
 	private boolean isBrickOrPaddle(GObject obj) {
 		if(obj != null){
 			if(obj == paddle) {
@@ -275,6 +321,10 @@ public class Breakout extends GraphicsProgram {
 		return false;
 	}
 
+	/**
+	 * змніє швидкість, дивлячись на колір мяча
+	 * @param brickColor колір мяча
+	 */
 	private void updateSpeed(Color brickColor) {
 		if(brickColor == Color.red){
 			upSpeed(4, upSpeedCoefficient);
@@ -287,6 +337,11 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * збільшує швидкість мяча
+	 * @param n номер кольору мяча
+	 * @param k коефіцієнт збільшеня швидкості
+	 */
 	private void upSpeed(int n, double k) {
 		if(n >= speedLevel){
 			speedLevel++;
@@ -295,11 +350,17 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * ініціалізує ракетку
+	 */
 	private void initPaddle() {
 		paddle = CreatePaddle();
 		add(paddle);
 	}
 
+	/**
+	 * ініціалізує мяч та надає йому початкову швидкість
+	 */
 	private void initBall() {
         vx = rgen.nextDouble(1.0, 3.0);
         if (rgen.nextBoolean(0.5)) vx = -vx;
@@ -313,7 +374,12 @@ public class Breakout extends GraphicsProgram {
         add(ball,startX,startY);
     }
 
-    private Color returnCol (int num){
+	/**
+	 * повертає наступний колір цеглини за номером кольору цеглини
+	 * @param num номер кольору
+	 * @return колір цеглини
+	 */
+	private Color returnCol (int num){
 			switch (num){
 				case 0: return Color.red;
 				case 1: return Color.orange;
@@ -324,6 +390,9 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * малює всі цеглини
+	 */
 	private void drawBricks() {
 		int yBrick = BRICK_Y_OFFSET;
 		for(int i = 0;i < NBRICK_ROWS;i++){
@@ -340,6 +409,11 @@ public class Breakout extends GraphicsProgram {
 
 	}
 
+	/**
+	 * знаходить потрібний колір цеглини дивлячись на її рядок
+	 * @param i рядок цеглини
+	 * @return колір цеглини
+	 */
 	private Color nextColor(int i) {
 		int numberOfColors = 5;
 		if(NBRICK_ROWS > numberOfColors-1) {
@@ -349,6 +423,10 @@ public class Breakout extends GraphicsProgram {
 		}else return returnCol(i);
 	}
 
+	/**
+	 * створює ракетку
+	 * @return GRect(ракетку)
+	 */
 	private GRect CreatePaddle(){
 		Color paddleColor = new Color(223,245,119);
 		GRect paddle = new GRect(WIDTH/2.0-PADDLE_WIDTH/2.0,getHeight()- Breakout.PADDLE_Y_OFFSET - Breakout.PADDLE_HEIGHT,
@@ -358,6 +436,10 @@ public class Breakout extends GraphicsProgram {
 		return paddle;
 	}
 
+	/**
+	 * рухає ракеку, якщо в грі, або передає mouseEvent в меню, якщо не в грі
+	 * @param e mouseEvent
+	 */
 	public void mouseMoved(MouseEvent e) {
 	    if(!isFinishGame) {
             if (paddle != null) {
@@ -371,12 +453,19 @@ public class Breakout extends GraphicsProgram {
         } else mn.mouseMoved(e);
 	}
 
+	/**
+	 * якщо не в грі передає MouseEvent в меню
+	 * @param e MouseEvent
+	 */
 	public void mouseClicked(MouseEvent e) {
 		if(!mn.getStartFlag()){
 		    mn.mouseClicked(e);
         }
 	}
 
+	/**
+	 * ініціалізує сердця(кількість життів)
+	 */
 	private void initHearts(){
 		if(lives > 0) {
 			heart1 = new GImage("Heart.png");
@@ -395,6 +484,9 @@ public class Breakout extends GraphicsProgram {
 		}
 	}
 
+	/**
+	 * ініціалізує 
+	 */
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 5, 10);
 		scoreImage.scale(1.1);
