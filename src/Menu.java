@@ -43,10 +43,10 @@ public class Menu extends GCompound {
     private int difficultNum = 1;
 
     /**
-     * РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ РјРµРЅСЋ
-     * @param name РЅР°Р·РІР° РіСЂРё
-     * @param wight С€РёСЂРёРЅР° РІС–РєРЅР°
-     * @param height РІРёСЃРѕС‚Р° РІС–РєРЅР°
+     * конструктор меню
+     * @param name назва гри
+     * @param wight ширина вікна
+     * @param height висота вікна
      */
     public Menu(String name, double wight, double height){
         this.wight = wight;
@@ -60,7 +60,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р—Р°РїСѓСЃРє С„РѕРЅРѕРІРѕС— РјСѓР·РёРєРё РІ РјРµРЅСЋ
+     * Запуск фонової музики в меню
      */
  private void musicStart(){
         if(musicPlay) {
@@ -71,7 +71,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р—РІСѓРє, РєРѕР»Рё РЅР°С‚РёСЃРєР°С”С€ РЅР° РєРЅРѕРїРєСѓ.
+     * Звук, коли натискаєш на кнопку.
      */
     private void buttonSoundPlay(){
         if (soundEffectsPlay){
@@ -87,7 +87,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” РІСЃС– РѕР±'С”РєС‚Рё РІ РјРµРЅСЋ
+     * Ініціалізує всі об'єкти в меню
      */
     private void initAllElements() {
         readSettings();
@@ -126,9 +126,9 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” РѕР±'С”РєС‚Рё РІ РјРµРЅСЋ Р·Р°РєС–РЅС‡РµРЅРЅСЏ РіСЂРё.
-     * @param score Р РµР·СѓР»СЊС‚Р°С‚ РЅР°Р±СЂР°РЅРёР№ РїСЂРѕС‚СЏРіРѕРј РіСЂРё
-     * @param win РџРµСЂРµРІС–СЂСЏС” С‡Рё РїРµСЂРµРјС–Рі РіСЂР°РІРµС†СЊ
+     * Ініціалізує об'єкти в меню закінчення гри.
+     * @param score Результат набраний протягом гри
+     * @param win Перевіряє чи переміг гравець
      */
     public void initAfterGameMenu(int score, boolean win) {
         musicStart();
@@ -148,7 +148,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * РџСЂРёР±РёСЂР°С” РІСЃС– РѕР±'С”РєС‚Рё РІ РјРµРЅСЋ Р·Р°РєС–РЅС‡РµРЅРЅСЏ РіСЂРё
+     * Прибирає всі об'єкти в меню закінчення гри
      */
     private void removeAfterGameMenu(){
         remove(restartButton);
@@ -160,7 +160,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” РѕР±'С”РєС‚Рё РІ СЃС‚Р°СЂС‚РѕРІРѕРјСѓ РјРµРЅСЋ
+     * Ініціалізує об'єкти в стартовому меню
      */
     private void initStartMenu() {
         nameGame = new GLabel(name);
@@ -177,7 +177,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р’РёРґР°Р»СЏС” РѕР±'С”РєС‚Рё СЃС‚Р°СЂС‚РѕРІРѕРіРѕ РјРµРЅСЋ
+     * Видаляє об'єкти стартового меню
      */
     private void removeStartMenu(){
         remove(startButton);
@@ -188,7 +188,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” РјРµРЅСЋ СЂРµР·СѓР»СЊС‚Р°С‚С–РІ
+     * Ініціалізує меню результатів
      */
     private void initScoreMenu(){
         add(topScoreLabel,wight/2.0-topScoreLabel.getWidth()/2.0,height/10);
@@ -197,7 +197,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р’РёРґР°Р»СЏС” РѕР±'С”РєС‚Рё РјРµРЅСЋ СЂРµР·СѓР»СЊС‚Р°С‚С–РІ
+     * Видаляє об'єкти меню результатів
      */
     private void removeScoreMenu(){
         remove(topScoreLabel);
@@ -206,7 +206,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” РјРµРЅСЋ РЅР°Р»Р°С€С‚СѓРІР°РЅСЊ
+     * Ініціалізує меню налаштувань
      */
     private void initSettingsMenu(){
         add(settingsM,0,0);
@@ -214,7 +214,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р’РёРґР°Р»СЏС” РѕР±'С”РєС‚Рё РјРµРЅСЋ РЅР°Р»Р°С€С‚СѓРІР°РЅСЊ
+     * Видаляє об'єкти меню налаштувань
      */
     private void removeSettingsMenu(){
         remove(settingsM);
@@ -226,7 +226,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * РњР°Р»СЋС” С„РѕРЅ
+     * Малює фон
      */
     private void drawBackGround() {
         GRect rect = new GRect(wight,height);
@@ -240,7 +240,7 @@ public class Menu extends GCompound {
     Button lastButton;
 
     /**
-     * РџРµСЂРµРІС–СЂСЏС” С‡Рё РЅР°РІРµРґРµРЅРёР№ Р·Р°СЂР°Р· РєСѓСЂСЃРѕСЂ РЅР° РєРЅРѕРїРєСѓ С‚Р° Р·РјС–РЅСЋС” РєРѕР»С–СЂ РєРЅРѕРїРєРё РІ Р·Р°Р»РµР¶РЅРѕСЃС‚С– РІС–Рґ С†СЊРѕРіРѕ.
+     * Перевіряє чи наведений зараз курсор на кнопку та змінює колір кнопки в залежності від цього.
      * @param e MouseEvent
      */
     public void mouseMoved(MouseEvent e){
@@ -268,7 +268,7 @@ public class Menu extends GCompound {
     RandomGenerator rnd = RandomGenerator.getInstance();
 
     /**
-     * РџРµСЂРµРІС–СЂСЏС” РЅР° СЏРєСѓ РєРЅРѕРїРєСѓ РЅР°С‚РёСЃРЅСѓРІ РєРѕСЂРёСЃС‚СѓРІР°С‡
+     * Перевіряє на яку кнопку натиснув користувач
      * @param e MouseEvent
      */
     public void mouseClicked(MouseEvent e) {
@@ -322,57 +322,57 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р—РјС–РЅСЋС” РєРѕР»С–СЂ РЅР°Р·РІРё РіСЂРё
+     * Змінює колір назви гри
      */
     public void changeNameColor(){
         nameGame.setColor(rnd.nextColor());
     }
 
     /**
-     * @return С„Р»Р°Рі РІРёС…РѕРґСѓ Р· РјРіСЂРё
+     * @return флаг виходу з мгри
      */
     public boolean getExitFlag(){
         return exitFlag;
     }
 
     /**
-     * @return С„Р»Р°Рі РїРѕС‡Р°С‚РєСѓ РіСЂРё
+     * @return флаг початку гри
      */
     public boolean getStartFlag(){
         return startFlag;
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЃС‚Р°СЂС‚РѕРІРёР№ С„Р»Р°Рі
-     * @param flag С„Р»Р°Рі
+     * змінює стартовий флаг
+     * @param flag флаг
      */
     public void changeStartFlag(boolean flag){
         startFlag = flag;
     }
 
     /**
-     * @return boolean РјСѓР·РёРєР° РіСЂР°С”
+     * @return boolean музика грає
      */
     public boolean isMusicPlay(){
         return musicPlay;
     }
 
     /**
-     * @return boolean Р·РІСѓРєРё РіСЂР°СЋС‚СЊ
+     * @return boolean звуки грають
      */
     public boolean isSoundEffectsPlay(){
         return soundEffectsPlay;
     }
 
     /**
-     * @return СЃРєР»Р°РґРЅС–СЃС‚СЊ РІ int
+     * @return складність в int
      */
     public int getDifficult(){
         return difficultNum;
     }
 
     /**
-     * Р§РёС‚Р°С” Р· С„РѕР№Р»Сѓ РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ, СЏРєС– Р±СѓР»Рё РїСЂРё РјРёРЅСѓР»РѕРјСѓ Р·Р°РїСѓСЃРєСѓ РіСЂРё.
+     * Читає з фойлу налаштування, які були при минулому запуску гри.
      */
     public void readSettings(){
         try{
@@ -388,7 +388,7 @@ public class Menu extends GCompound {
     }
 
     /**
-     * Р—Р°РїР°Рј'СЏС‚РѕРІСѓС” РЅР°Р»Р°С€С‚СѓРІР°РЅРЅСЏ РєРѕСЂРёСЃС‚СѓРІР°С‡Р°
+     * Запам'ятовує налаштування користувача
      */
     public void saveSettings(){
         try {
@@ -403,9 +403,9 @@ public class Menu extends GCompound {
     }
 
     /**
-     * С‡РёС‚Р°С” СЃС‚СЂС–С‡РєСѓ С‚Р° РїРѕРІРµСЂС‚Р°С” Р·РЅР°С‡РµРЅРЅСЏ int С†С–С”С— СЃС‚СЂС–С‡РєРё
-     * @param readLine СЃС‚СЂС–С‡РєР°
-     * @return РЅРѕРјРµСЂ int
+     * читає стрічку та повертає значення int цієї стрічки
+     * @param readLine стрічка
+     * @return номер int
      */
     private int readInt(String readLine) {
         if(readLine != null) {
@@ -416,8 +416,8 @@ public class Menu extends GCompound {
     }
 
     /**
-     * С‡РёС‚Р°С” СЃС‚СЂС–С‡РєСѓ С– РїРѕРІРµСЂС‚Р°С” false СЏРєС‰Рѕ РїРµСЂС€РёР№ СЃРёРјРІРѕР» 0, С–РЅРєР°С€Рµ true
-     * @param line СЃС‚СЂС–С‡РєР°
+     * читає стрічку і повертає false якщо перший символ 0, інкаше true
+     * @param line стрічка
      * @return boolean
      */
     private boolean readBoolean(String line) {

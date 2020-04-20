@@ -5,7 +5,7 @@ import acm.graphics.GRoundRect;
 import java.awt.*;
 
 /**
- * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ Button
+ * Конструктор Button
  */
 public class Button extends GCompound {
     GRoundRect butt;
@@ -31,9 +31,9 @@ public class Button extends GCompound {
     }
 
     /**
-     * Р·РЅР°С…РѕРґРёС‚СЊ РЅР°Р№Р±С–Р»СЊС€ РєСЂР°С‰РёР№ С€СЂРёС„С‚
+     * знаходить найбільш кращий шрифт
      * @param name GLabel
-     * @param font РЅР°Р·РІР° С€СЂРёС„С‚Р°
+     * @param font назва шрифта
      */
     private void checkNameSize(GLabel name,String font) {
         int size = 1;
@@ -45,8 +45,8 @@ public class Button extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” РљРѕР»С–СЂ РєРЅРѕРїРєРё
-     * @param isMouse РјРёС€Р° РЅР°РІРµРґРµРЅР° РІ boolean
+     * змінює Колір кнопки
+     * @param isMouse миша наведена в boolean
      */
     public void changeColor(boolean isMouse){
         if(isMouse){
@@ -59,8 +59,8 @@ public class Button extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” С€СЂРёС„С‚
-     * @param font С€СЂРёС„С‚
+     * змінює шрифт
+     * @param font шрифт
      */
     public void setFont(String font){
         name.setFont(font);
@@ -68,7 +68,7 @@ public class Button extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” label
+     * змінює label
      * @param label GLabel
      */
     public void setLabel(String label){

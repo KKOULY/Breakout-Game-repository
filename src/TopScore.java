@@ -23,10 +23,10 @@ public class TopScore extends GCompound{
     private double height;
 
     /**
-     * РљРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ TopScore
-     * @param filePath РЅР°Р·РІР° С„Р°Р№Р»Сѓ Р· СЏРєРѕРіРѕ Р·С‡РёС‚СѓС”С‚СЊСЃСЏ СЂРµР·СѓР»СЊС‚Р°С‚Рё
-     * @param wight С€РёСЂРёРЅР°
-     * @param height РІРёСЃРѕС‚Р°
+     * Конструктор TopScore
+     * @param filePath назва файлу з якого зчитується результати
+     * @param wight ширина
+     * @param height висота
      */
     public TopScore(String filePath, double wight, double height){
         this.wight = wight;
@@ -36,7 +36,7 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * РњР°Р»СЋС” СЂРµР·СѓР»СЊС‚Р°С‚Рё
+     * Малює результати
      */
     private void drawScores() {
         double labelHeight = (height/9.0)*0.95;
@@ -52,8 +52,8 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * РџРѕРІРµСЂС‚Р°С” РѕР±С”РєС‚ Score Р·Р° РЅРѕРјРµСЂРѕРј
-     * @param i РЅРѕРјРµСЂ
+     * Повертає обєкт Score за номером
+     * @param i номер
      * @return Score
      */
     private Score nextScore(int i) {
@@ -81,10 +81,10 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * Р—РЅР°С…РѕРґРёС‚СЊ РЅР°Р№Р±С–Р»СЊС€ РєСЂР°С‰РёР№ С€СЂРёС„С‚
-     * @param font РЅР°Р·РІР° С€СЂРёС„С‚Сѓ
-     * @param maxHeight РјР°РєСЃРёРјР°Р»СЊРЅР° РІРёСЃРѕС‚Р°
-     * @return С€СЂРёС„С‚
+     * Знаходить найбільш кращий шрифт
+     * @param font назва шрифту
+     * @param maxHeight максимальна висота
+     * @return шрифт
      */
     private String findFont(String font, double maxHeight) {
         int fontSize = 1;
@@ -100,8 +100,8 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * Р†РЅС–С†С–Р°Р»С–Р·СѓС” Score РѕР±С”РєС‚Рё
-     * @param filePath РЅР°Р·РІР° С„Р°Р№Р»Сѓ Р· СЏРєРѕРіРѕ Р·С‡РёС‚Р°СЋС‚СЊСЃСЏ СЂРµР·СѓР»СЊС‚Р°С‚Рё
+     * Ініціалізує Score обєкти
+     * @param filePath назва файлу з якого зчитаються результати
      */
     private void initScores(String filePath) {
         try{
@@ -124,9 +124,9 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * РћРЅРѕРІР»СЋС” СЂРµР·СѓР»СЊС‚Р°С‚Рё
-     * @param score СЂР°С…СѓРЅРѕРє
-     * @param difficulty СЃРєР»Р°РґРЅС–СЃС‚СЊ
+     * Оновлює результати
+     * @param score рахунок
+     * @param difficulty складність
      */
     public void refreshScore(int score, int difficulty){
         int tempScore = score;
@@ -151,7 +151,7 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * РџРµСЂРµРјР°Р»СЊРѕРІСѓС” СЂРµР·СѓР»СЊС‚Р°С‚Рё
+     * Перемальовує результати
      */
     private void redrawScores() {
         double x = wight/4.0;
@@ -163,7 +163,7 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * Р—Р±РµСЂС–РіР°С” СЂРµР·СѓР»СЊС‚Р°С‚Рё
+     * Зберігає результати
      */
     private void saveScores() {
         try {
@@ -179,9 +179,9 @@ public class TopScore extends GCompound{
     }
 
     /**
-     * Р—С‡РёС‚СѓС” СЃС‚СЂС–С‡РєСѓ С– РїРѕРІРµСЂС‚Р°С” С—С—
-     * @param reader СЂС–РґРµСЂ
-     * @return СЃС‚СЂС–С‡РєСѓ
+     * Зчитує стрічку і повертає її
+     * @param reader рідер
+     * @return стрічку
      */
     private String writeLine(BufferedReader reader) {
         try {

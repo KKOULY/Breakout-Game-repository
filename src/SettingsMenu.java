@@ -24,12 +24,12 @@ public class SettingsMenu extends GCompound {
     private SoundClip buttonSound;
 
     /**
-     * РєРѕРЅСЃС‚СЂСѓРєС‚РѕСЂ SettingsMenu
-     * @param wight С€РёСЂРёРЅР° РІС–РєРЅР°
-     * @param height РІРёСЃРѕС‚Р° РІС–РєРЅР°
-     * @param musicPlay РјСѓР·РёРєР° РїРѕРІРёРЅРЅР° РіСЂР°С‚Рё
-     * @param soundEffectsPlay Р·РІСѓРєРё РїРѕРІС–РЅРЅС– РіСЂР°С‚Рё
-     * @param difficultNum РЅРѕРјРµСЂ СЃРєР»Р°РґРЅРѕСЃС‚С–
+     * конструктор SettingsMenu
+     * @param wight ширина вікна
+     * @param height висота вікна
+     * @param musicPlay музика повинна грати
+     * @param soundEffectsPlay звуки повінні грати
+     * @param difficultNum номер складності
      */
     public SettingsMenu(double wight, double height, boolean musicPlay, boolean soundEffectsPlay, int difficultNum){
         this.wight = wight;
@@ -42,7 +42,7 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * Р·РІСѓРє РЅР°С‚РёСЃРєР°РЅРЅСЏ РЅР° РєРЅРѕРїРєСѓ
+     * звук натискання на кнопку
      */
     public void buttonSoundPlay(){
         if (soundEffectsPlay){
@@ -58,7 +58,7 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * С–РЅС–С†С–Р°Р»С–Р·СѓС” РІСЃС– РµР»РµРјРµРЅС‚Рё
+     * ініціалізує всі елементи
      */
     private void initAllElements() {
             musicButton = new Button(musicPlay?"ON":"OFF",buttonSize,buttonSize);
@@ -88,8 +88,8 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * РїРѕРІРµСЂС‚Р°С” СЃРєР»Р°РґРЅС–СЃС‚СЊ РіСЂРё РІ String
-     * @return СЃРєР»Р°РґРЅС–СЃС‚СЊ in String
+     * повертає складність гри в String
+     * @return складність in String
      */
     private String difficultToString() {
         switch (difficultNum){
@@ -105,7 +105,7 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * С–РЅС–С†С–Р°Р»С–Р·СѓС” РїСЂРѕР·РѕСЂРёР№ С„РѕРЅ
+     * ініціалізує прозорий фон
      */
     private void initBackground() {
         GRect backgound = new GRect(wight,height);
@@ -117,7 +117,7 @@ public class SettingsMenu extends GCompound {
     Button lastButton;
 
     /**
-     * РїРµСЂРµРІС–СЂСЏС” РЅР°РІРµРґРµРЅРЅСЏ РЅР° РєРЅРѕРїРєРё
+     * перевіряє наведення на кнопки
      * @param e mouseEvent
      */
     public void mouseMoved(MouseEvent e){
@@ -142,7 +142,7 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” РЅР°СЃС‚СЂРѕР№РєРё РІС–РґРЅРѕСЃРЅРѕ СЏРєРѕС— РєРЅРѕРїРєРё РЅР°С‚РёСЃРЅСѓРІ РєРѕСЂРёСЃС‚СѓРІР°С‡
+     * змінює настройки відносно якої кнопки натиснув користувач
      * @param e MouseEvent
      */
     public void mouseCLicked(MouseEvent e){
@@ -171,8 +171,8 @@ public class SettingsMenu extends GCompound {
     }
 
     /**
-     * Р·РјС–РЅСЋС” СЃРєР»Р°РґРЅС–СЃС‚СЊ РЅР° РЅР°СЃС‚СѓРїРЅСѓ
-     * @return СЃРєР»Р°РґРЅС–СЃС‚СЊ РІ int
+     * змінює складність на наступну
+     * @return складність в int
      */
     private int nextDifficult() {
         int countOfDifficulties = 3;
