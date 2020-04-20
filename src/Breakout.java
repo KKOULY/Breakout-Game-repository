@@ -89,7 +89,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РіРѕР»РѕРІРЅРёР№ РјРµС‚РѕРґ РіСЂРё
+	 * головний метод гри
 	 */
 	private void Game() {
         add(mn);
@@ -106,7 +106,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РїСЂРѕРіСЂР°С” Р·РІСѓРє СѓРґР°СЂР°
+	 * програє звук удара
 	 */
 	private void playPunchSound(){
 		if(soundEffectsPlay) {
@@ -120,7 +120,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РїСЂРѕРіСЂР°С” Р·РІСѓРє РІС–РґРЅС–РјР°РЅРЅСЏ Р¶РёС‚С‚СЏ
+	 * програє звук віднімання життя
 	 */
 	private void playCrashSound(){
 		if(soundEffectsPlay) {
@@ -129,7 +129,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” РІСЃС– Р·РІСѓРєРё, С‚Р°Р№РјРµСЂ, С†РёРєР» РіСЂРё
+	 * ініціалізує всі звуки, таймер, цикл гри
 	 */
 	private void startGame(){
 		soundEffectsPlay = mn.isSoundEffectsPlay();
@@ -150,7 +150,7 @@ public class Breakout extends GraphicsProgram {
     }
 
 	/**
-	 * СЂРѕР·СЂР°С…РѕРІСѓС” РєРѕС”С„С–С†С–С”РЅС‚ Р·Р±С–Р»СЊС€РµРЅРЅСЏ С€РІРёРґРєРѕСЃС‚С–
+	 * розраховує коєфіцієнт збільшення швидкості
 	 */
 	private void computeCoefficient() {
 		int difLevel = mn.getDifficult();
@@ -167,9 +167,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” Р·РІСѓРє
-	 * @param soundName РЅР°Р·РІР° Р·РІСѓРєРѕРІРѕРіРѕ С„Р°Р№Р»Р°
-	 * @param volume РіСѓС‡РЅС–СЃС‚СЊ
+	 * ініціалізує звук
+	 * @param soundName назва звукового файла
+	 * @param volume гучність
 	 * @return SoundClip
 	 */
 	private SoundClip initSound(String soundName, double volume){
@@ -179,7 +179,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” РІСЃС– РµР»РµРјРµРЅС‚Рё
+	 * ініціалізує всі елементи
 	 */
 	private void initAllElements() {
 		lives = 3;
@@ -194,7 +194,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РјРµС‚РѕРґ СЏРєРёР№ РїСЂРёР±РёСЂР°С” РІСЃС– РµР»РµРјРµРЅС‚Рё С– Р·Р°РїСѓСЃРєР°С” РІС–РєРЅРѕ РїРѕСЂР°Р·РєРё/РїРµСЂРµРјРѕРіРё
+	 * метод який прибирає всі елементи і запускає вікно поразки/перемоги
 	 */
 	private void finishGame(){
 		tema.stop();
@@ -205,7 +205,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РїРµСЂРµРІС–СЂСЏС” РјСЏС‡РёРє РЅР° РєРѕР»С–Р·С–СЋ Р·С– СЃС‚С–РЅР°РјРё, СЂР°РєРµС‚РєРѕСЋ, С†РµРіР»РёРЅР°РјРё
+	 * перевіряє мячик на колізію зі стінами, ракеткою, цеглинами
 	 */
 	private void checkCollision() {
 		if(ball.getX() < 0 || ball.getX()+ball.getHeight() > WIDTH) {
@@ -257,7 +257,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РїСЂРёР±РёСЂР°С” СЂС–Р·РЅС–С†СЋ Р·Р°С…РѕРґР¶РµРЅРЅСЏ РјСЏС‡Р° Р·Р° РїРѕР»СЏ РіСЂРё
+	 * прибирає різніцю заходження мяча за поля гри
 	 */
 	private void removeDifference() {
 		double dif = 0;
@@ -276,8 +276,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * Р·РЅР°С…РѕРґРёС‚СЊ РѕР±С”РєС‚ РїРѕРїРµСЂРµРґСѓ
-	 * @return РїРѕРІРµСЂС‚Р°С” true СЏРєС‰Рѕ РѕР±С”РєС‚ РїРѕРїРµСЂРµРґСѓ С†РµРіР»РёРЅР° Р°Р±Рѕ СЂР°РєРµС‚РєР°
+	 * знаходить обєкт попереду
+	 * @return повертає true якщо обєкт попереду цеглина або ракетка
 	 */
 	private boolean findObjectForward() {
 		GObject obj;
@@ -295,9 +295,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РїРµСЂРµРІС–СЂСЏС” С‡Рё С” С†РµР№ РѕР±С”РєС‚ С†РµРіР»РёРЅРѕСЋ Р°Р±Рѕ СЂР°РєРµС‚РєРѕСЋ
-	 * @param obj РѕР±С”РєС‚, С‰Рѕ РїРµСЂРµРІС–СЂСЏС”С‚СЊСЃСЏ
-	 * @return РїРѕРІРµСЂС‚Р°С” true, СЏРєС‰Рѕ РѕР±С”РєС‚ С†РµРіР»РёРЅР° Р°Р±Рѕ СЂР°РєРµС‚РєР°
+	 * перевіряє чи є цей обєкт цеглиною або ракеткою
+	 * @param obj обєкт, що перевіряється
+	 * @return повертає true, якщо обєкт цеглина або ракетка
 	 */
 	private boolean isBrickOrPaddle(GObject obj) {
 		if(obj != null){
@@ -322,8 +322,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * Р·РјРЅС–С” С€РІРёРґРєС–СЃС‚СЊ, РґРёРІР»СЏС‡РёСЃСЊ РЅР° РєРѕР»С–СЂ РјСЏС‡Р°
-	 * @param brickColor РєРѕР»С–СЂ РјСЏС‡Р°
+	 * змніє швидкість, дивлячись на колір мяча
+	 * @param brickColor колір мяча
 	 */
 	private void updateSpeed(Color brickColor) {
 		if(brickColor == Color.red){
@@ -338,9 +338,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * Р·Р±С–Р»СЊС€СѓС” С€РІРёРґРєС–СЃС‚СЊ РјСЏС‡Р°
-	 * @param n РЅРѕРјРµСЂ РєРѕР»СЊРѕСЂСѓ РјСЏС‡Р°
-	 * @param k РєРѕРµС„С–С†С–С”РЅС‚ Р·Р±С–Р»СЊС€РµРЅСЏ С€РІРёРґРєРѕСЃС‚С–
+	 * збільшує швидкість мяча
+	 * @param n номер кольору мяча
+	 * @param k коефіцієнт збільшеня швидкості
 	 */
 	private void upSpeed(int n, double k) {
 		if(n >= speedLevel){
@@ -351,7 +351,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” СЂР°РєРµС‚РєСѓ
+	 * ініціалізує ракетку
 	 */
 	private void initPaddle() {
 		paddle = CreatePaddle();
@@ -359,7 +359,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” РјСЏС‡ С‚Р° РЅР°РґР°С” Р№РѕРјСѓ РїРѕС‡Р°С‚РєРѕРІСѓ С€РІРёРґРєС–СЃС‚СЊ
+	 * ініціалізує мяч та надає йому початкову швидкість
 	 */
 	private void initBall() {
         vx = rgen.nextDouble(1.0, 3.0);
@@ -375,9 +375,9 @@ public class Breakout extends GraphicsProgram {
     }
 
 	/**
-	 * РїРѕРІРµСЂС‚Р°С” РЅР°СЃС‚СѓРїРЅРёР№ РєРѕР»С–СЂ С†РµРіР»РёРЅРё Р·Р° РЅРѕРјРµСЂРѕРј РєРѕР»СЊРѕСЂСѓ С†РµРіР»РёРЅРё
-	 * @param num РЅРѕРјРµСЂ РєРѕР»СЊРѕСЂСѓ
-	 * @return РєРѕР»С–СЂ С†РµРіР»РёРЅРё
+	 * повертає наступний колір цеглини за номером кольору цеглини
+	 * @param num номер кольору
+	 * @return колір цеглини
 	 */
 	private Color returnCol (int num){
 			switch (num){
@@ -391,7 +391,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РјР°Р»СЋС” РІСЃС– С†РµРіР»РёРЅРё
+	 * малює всі цеглини
 	 */
 	private void drawBricks() {
 		int yBrick = BRICK_Y_OFFSET;
@@ -410,9 +410,9 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * Р·РЅР°С…РѕРґРёС‚СЊ РїРѕС‚СЂС–Р±РЅРёР№ РєРѕР»С–СЂ С†РµРіР»РёРЅРё РґРёРІР»СЏС‡РёСЃСЊ РЅР° С—С— СЂСЏРґРѕРє
-	 * @param i СЂСЏРґРѕРє С†РµРіР»РёРЅРё
-	 * @return РєРѕР»С–СЂ С†РµРіР»РёРЅРё
+	 * знаходить потрібний колір цеглини дивлячись на її рядок
+	 * @param i рядок цеглини
+	 * @return колір цеглини
 	 */
 	private Color nextColor(int i) {
 		int numberOfColors = 5;
@@ -424,8 +424,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * СЃС‚РІРѕСЂСЋС” СЂР°РєРµС‚РєСѓ
-	 * @return GRect(СЂР°РєРµС‚РєСѓ)
+	 * створює ракетку
+	 * @return GRect(ракетку)
 	 */
 	private GRect CreatePaddle(){
 		Color paddleColor = new Color(223,245,119);
@@ -437,7 +437,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * СЂСѓС…Р°С” СЂР°РєРµРєСѓ, СЏРєС‰Рѕ РІ РіСЂС–, Р°Р±Рѕ РїРµСЂРµРґР°С” mouseEvent РІ РјРµРЅСЋ, СЏРєС‰Рѕ РЅРµ РІ РіСЂС–
+	 * рухає ракеку, якщо в грі, або передає mouseEvent в меню, якщо не в грі
 	 * @param e mouseEvent
 	 */
 	public void mouseMoved(MouseEvent e) {
@@ -454,7 +454,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * СЏРєС‰Рѕ РЅРµ РІ РіСЂС– РїРµСЂРµРґР°С” MouseEvent РІ РјРµРЅСЋ
+	 * якщо не в грі передає MouseEvent в меню
 	 * @param e MouseEvent
 	 */
 	public void mouseClicked(MouseEvent e) {
@@ -464,7 +464,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” СЃРµСЂРґС†СЏ(РєС–Р»СЊРєС–СЃС‚СЊ Р¶РёС‚С‚С–РІ)
+	 * ініціалізує сердця(кількість життів)
 	 */
 	private void initHearts(){
 		if(lives > 0) {
@@ -485,7 +485,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * С–РЅС–С†С–Р°Р»С–Р·СѓС” СЂР°С…СѓРЅРѕРє
+	 * ініціалізує рахунок
 	 */
 	private void  initScore(){
 		GImage scoreImage = new GImage("ScorePNG.png", 5, 10);
@@ -498,8 +498,8 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * РѕРЅРѕРІР»СЋС” СЂР°С…СѓРЅРѕРє РґРёРІР»СЏС‡РёСЃСЊ РЅР° РєРѕР»С–СЂ С†РµРіР»РёРЅРё
-	 * @param brickColor РєРѕР»С–СЂ Р·Р±РёС‚РѕС— С†РµРіР»РёРЅРё
+	 * оновлює рахунок дивлячись на колір цеглини
+	 * @param brickColor колір збитої цеглини
 	 */
 	private void updateScore(Color brickColor){
 	if(brickColor == Color.red)
@@ -516,7 +516,7 @@ public class Breakout extends GraphicsProgram {
 	}
 
 	/**
-	 * Р°РЅС–РјР°С†С–СЏ С‚Р°Р№РјРµСЂСѓ РїРѕС‡Р°С‚РєСѓ РіСЂРё
+	 * анімація таймеру початку гри
 	 */
 	private void timer(){
 		int time = 3;
