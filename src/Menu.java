@@ -43,7 +43,7 @@ public class Menu extends GCompound {
     private int difficultNum = 1;
 
     /**
-     * Головний метод цього класу
+     * конструктор меню
      * @param name
      * @param wight
      * @param height
@@ -321,29 +321,52 @@ public class Menu extends GCompound {
         }
     }
 
-
+    /**
+     * Змінює колір назви гри
+     */
     public void changeNameColor(){
         nameGame.setColor(rnd.nextColor());
     }
 
+    /**
+     * @return флаг виходу з мгри
+     */
     public boolean getExitFlag(){
         return exitFlag;
     }
 
+    /**
+     * @return флаг початку гри
+     */
     public boolean getStartFlag(){
         return startFlag;
     }
 
+    /**
+     * змінює стартовий флаг
+     * @param flag флаг
+     */
     public void changeStartFlag(boolean flag){
         startFlag = flag;
     }
 
+    /**
+     * @return boolean музика грає
+     */
     public boolean isMusicPlay(){
         return musicPlay;
     }
+
+    /**
+     * @return boolean звуки грають
+     */
     public boolean isSoundEffectsPlay(){
         return soundEffectsPlay;
     }
+
+    /**
+     * @return складність в int
+     */
     public int getDifficult(){
         return difficultNum;
     }
@@ -379,6 +402,11 @@ public class Menu extends GCompound {
         }
     }
 
+    /**
+     * читає стрічку та повертає значення int цієї стрічки
+     * @param readLine стрічка
+     * @return номер int
+     */
     private int readInt(String readLine) {
         if(readLine != null) {
             int num = Integer.valueOf(readLine);
@@ -387,6 +415,11 @@ public class Menu extends GCompound {
         return 1;
     }
 
+    /**
+     * читає стрічку і повертає false якщо перший символ 0, інкаше true
+     * @param line стрічка
+     * @return boolean
+     */
     private boolean readBoolean(String line) {
         if(line != null){
             return line.charAt(0) != '0';
