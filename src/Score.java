@@ -38,6 +38,7 @@ public class Score extends GCompound {
     }
 
     /**
+     * Повертає рахунок в int
      * @return повертає рахунок в int
      */
     public int getNum(){
@@ -103,6 +104,7 @@ public class Score extends GCompound {
     }
 
     /**
+     * Повертає кількість рахунків всього
      * @return повертає кількість рахунків всього
      */
     public int getCount(){
@@ -110,6 +112,7 @@ public class Score extends GCompound {
     }
 
     /**
+     * Повертає складність в int
      * @return повертає складність в int
      */
     public int getDifficultNum(){
@@ -117,7 +120,7 @@ public class Score extends GCompound {
     }
 
     /**
-     * повертає складність гри в String
+     * Повертає складність гри в String
      * @return складність in String
      */
     private String difficultToString() {

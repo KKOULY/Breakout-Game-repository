@@ -332,13 +332,15 @@ public class Menu extends GCompound {
     }
 
     /**
-     * @return флаг виходу з мгри
+     * Повертає флаг виходу з гри
+     * @return флаг виходу з гри
      */
     public boolean getExitFlag(){
         return exitFlag;
     }
 
     /**
+     * Повертає флаг початку гри
      * @return флаг початку гри
      */
     public boolean getStartFlag(){
@@ -354,6 +356,7 @@ public class Menu extends GCompound {
     }
 
     /**
+     * Повертає boolean музика грає
      * @return boolean музика грає
      */
     public boolean isMusicPlay(){
@@ -361,6 +364,7 @@ public class Menu extends GCompound {
     }
 
     /**
+     * Повертає boolean звуки грають
      * @return boolean звуки грають
      */
     public boolean isSoundEffectsPlay(){
@@ -368,6 +372,7 @@ public class Menu extends GCompound {
     }
 
     /**
+     * Повертає складність в int
      * @return складність в int
      */
     public int getDifficult(){
