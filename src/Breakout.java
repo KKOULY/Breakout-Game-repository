@@ -14,6 +14,9 @@ import acm.util.*;
 import java.awt.*;
 import java.awt.event.*;
 
+/**
+ * Головний клас гри
+ */
 public class Breakout extends GraphicsProgram {
 
 /** Width and height of application window in pixels */

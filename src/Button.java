@@ -5,7 +5,7 @@ import acm.graphics.GRoundRect;
 import java.awt.*;
 
 /**
- * Конструктор Button
+ * Кнопка
  */
 public class Button extends GCompound {
     GRoundRect butt;
@@ -13,6 +13,13 @@ public class Button extends GCompound {
     private double width,height;
     private boolean visible = true;
     String font = "GameOver";
+
+    /**
+     * Конструктор Button
+     * @param buttonName назва кнопки
+     * @param width ширина кнопки
+     * @param height висота кнопки
+     */
     public Button(String buttonName, double width, double height){
         this.width = width;
         this.height = height;

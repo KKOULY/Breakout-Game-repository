@@ -7,6 +7,9 @@ import acm.util.SoundClip;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 
+/**
+ * Меню налаштувань
+ */
 public class SettingsMenu extends GCompound {
 
     private double wight;

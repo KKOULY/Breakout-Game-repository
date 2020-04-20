@@ -7,6 +7,9 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.io.*;
 
+/**
+ * Головне меню
+ */
 public class Menu extends GCompound {
     //Start menu
     private GLabel nameGame;

@@ -5,6 +5,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.StringTokenizer;
 
+/**
+ * Рахунок+складність
+ */
 public class Score extends GCompound {
     private static int count = 1;
     private int num;

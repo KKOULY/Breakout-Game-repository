@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.*;
 import java.util.StringTokenizer;
 
+/**
+ * Топ рахунків
+ */
 public class TopScore extends GCompound{
 
     private Score s1 = new Score();
